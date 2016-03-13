@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title>testar proxy</title>
+    </head>
+    <body>
+        <h1>Testar en proxy mot feathers</h1>
+        <div id="socket-content"></div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript">
+            var socket = io();
+
+            socket.on('messages created', function(message) {
+                console.log('someone created a message', message);
+            });
+        </script>
+    </body>
+</html>

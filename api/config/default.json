@@ -1,0 +1,12 @@
+{
+  "host": "localhost",
+  "port": 3030,
+  "postgres": "postgres://postgres:@localhost:5432/escScoreApp",
+  "public": "../public/",
+  "auth": {
+    "token": {
+      "secret": "GJcmYJjwqHLG3332OtsApTI6dlFfiJexwZr2IuvH/V2sSNb4Gvz3yFQIkxDt+sqSYSarz2lr26pKsCh05x7EHA=="
+    },
+    "local": {}
+  }
+}
