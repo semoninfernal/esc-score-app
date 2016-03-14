@@ -2,7 +2,7 @@
 
 const service = require('feathers-sequelize');
 const user = require('./user-model');
-const hooks = require('./hooks');
+import { before, after } from './hooks/index';
 
 module.exports = function(){
   const app = this;
@@ -22,8 +22,8 @@ module.exports = function(){
   const userService = app.service('/users');
 
   // Set up our before hooks
-  userService.before(hooks.before);
+  userService.before(before);
 
   // Set up our after hooks
-  userService.after(hooks.after);
+  userService.after(after);
 };

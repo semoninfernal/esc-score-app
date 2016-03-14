@@ -1,8 +1,9 @@
 'use strict';
 
-const globalHooks = require('../../../hooks');
-const auth = require('feathers-authentication').hooks;
-const removePassword = require('./removePassword');
+import authentication from 'feathers-authentication';
+import { cleanResult } from '../../../hooks/index';
+
+const auth = authentication.hooks;
 
 exports.before = {
   all: [],
@@ -37,13 +38,10 @@ exports.before = {
 };
 
 exports.after = {
-  all: [
-    removePassword()
+  find: [
+    cleanResult('password')
   ],
-  find: [],
-  get: [],
-  create: [],
-  update: [],
-  patch: [],
-  remove: []
+  get: [
+    cleanResult('password')
+  ]
 };

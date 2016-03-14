@@ -1,13 +1,26 @@
-'use strict';
+function removeAttributes(result, attrs) {
+  for (const prop of attrs) {
+    console.log(prop);
+    delete result.dataValues[prop];
+  }
+}
 
-// Add any common hooks you want to share across services in here.
-// 
-// Below is an example of how a hook is written and exported. Please
-// see http://docs.feathersjs.com/hooks/readme.html for more details
-// on hooks.
-
-exports.myHook = function(options) {
+export function cleanResult(...attrs) {
   return function(hook) {
-    console.log('My custom global hook ran. Feathers is awesome!');
-  };
-};
+    // Do not touch internal hooks
+    if (hook.params.internal) {
+      return hook;
+    }
+
+    // We need to mutate the hook to avoid circular references
+    if (hook.result.data) {
+      for (const item of hook.result.data) {
+        removeAttributes(item, attrs);
+      }
+    } else {
+      removeAttributes(hook.result, attrs);
+    }
+
+    return hook;
+  }
+}
