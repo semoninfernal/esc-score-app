@@ -1,14 +1,19 @@
 'use strict';
 
-const service = require('feathers-sequelize');
+const service = require('feathers-knex');
 const user = require('./user-model');
 import { before, after } from './hooks/index';
+import userModel from './user-model';
 
 module.exports = function(){
   const app = this;
 
+  const bookshelf = app.get('bookshelf');
+  userModel(bookshelf);
+
   const options = {
-    Model: user(app.get('sequelize')),
+    Model: bookshelf.knex,
+    name: 'users',
     paginate: {
       default: 5,
       max: 25

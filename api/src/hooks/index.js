@@ -1,7 +1,6 @@
 function removeAttributes(result, attrs) {
   for (const prop of attrs) {
-    console.log(prop);
-    delete result.dataValues[prop];
+    delete result[prop];
   }
 }
 
@@ -11,7 +10,6 @@ export function cleanResult(...attrs) {
     if (hook.params.internal) {
       return hook;
     }
-
     // We need to mutate the hook to avoid circular references
     if (hook.result.data) {
       for (const item of hook.result.data) {

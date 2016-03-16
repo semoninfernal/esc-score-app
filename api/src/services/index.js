@@ -1,27 +1,23 @@
-const message = require('./message');
 const authentication = require('./authentication');
 const user = require('./user');
-const Sequelize = require('sequelize');
-const knex = require('knex');
+
+const _knex = require('knex');
+const _bookshelf = require('bookshelf');
 
 module.exports = function() {
   const app = this;
 
-  const db = knex({
+  const knex = _knex({
     client: 'pg',
     connection: app.get('postgres'),
     searchPath: 'knex,public'
   });
 
-  app.set('knex', db);
+  const bookshelf = _bookshelf(knex);
+  bookshelf.plugin('registry');
 
-  const sequelize = new Sequelize(app.get('postgres'), {
-    dialect: 'postgres',
-    logging: false
-  });
-  app.set('sequelize', sequelize);
+  app.set('bookshelf', bookshelf);
 
   app.configure(authentication);
   app.configure(user);
-  app.configure(message);
 };

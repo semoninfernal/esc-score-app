@@ -38,10 +38,7 @@ exports.before = {
 };
 
 exports.after = {
-  find: [
-    cleanResult('password')
-  ],
-  get: [
+  all: [
     cleanResult('password')
   ]
 };
