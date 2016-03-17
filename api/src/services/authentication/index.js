@@ -1,9 +1,7 @@
-'use strict';
-
-const authentication = require('feathers-authentication');
+import authentication from 'feathers-authentication';
 
 
-module.exports = function() {
+export default function() {
   const app = this;
   let config = {
     ...app.get('auth'),

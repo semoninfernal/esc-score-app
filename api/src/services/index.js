@@ -1,10 +1,9 @@
-const authentication = require('./authentication');
-const user = require('./user');
+import user from './user';
+import authentication from './authentication';
+import _knex from 'knex';
+import _bookshelf from 'bookshelf';
 
-const _knex = require('knex');
-const _bookshelf = require('bookshelf');
-
-module.exports = function() {
+export default function() {
   const app = this;
 
   const knex = _knex({

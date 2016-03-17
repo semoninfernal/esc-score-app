@@ -11,7 +11,7 @@ if (__DEVELOPMENT__) {
   }
 }
 
-const app = require('./app');
+const app = require('./app').default;
 const port = app.get('port');
 const server = app.listen(port);
 

@@ -1,11 +1,8 @@
-'use strict';
-
-const service = require('feathers-knex');
-const user = require('./user-model');
-import { before, after } from './hooks/index';
+import service from 'feathers-knex';
 import userModel from './user-model';
+import { before, after } from './hooks/index';
 
-module.exports = function(){
+export default function(){
   const app = this;
 
   const bookshelf = app.get('bookshelf');

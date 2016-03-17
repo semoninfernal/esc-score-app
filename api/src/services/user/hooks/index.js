@@ -1,11 +1,9 @@
-'use strict';
-
 import authentication from 'feathers-authentication';
 import { cleanResult } from '../../../hooks/index';
 
 const auth = authentication.hooks;
 
-exports.before = {
+export const before = {
   all: [],
   find: [
     auth.verifyToken(),
@@ -37,7 +35,7 @@ exports.before = {
   ]
 };
 
-exports.after = {
+export const after = {
   all: [
     cleanResult('password')
   ]
