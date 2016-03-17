@@ -30,4 +30,7 @@ node_modules
 lib/
 data/
 
+*.iml
+
+## Directory-based project format:
 .idea/
