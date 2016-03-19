@@ -1,15 +1,13 @@
 import service from 'feathers-knex';
-import userModel from './user-model';
-import { before, after } from './hooks/index';
+import bookshelf from '../../bookshelf'
+import UserService from './user-service';
+import { before, after } from './hooks';
 
-export default function(){
+export default function() {
   const app = this;
 
-  const bookshelf = app.get('bookshelf');
-  userModel(bookshelf);
-
   const options = {
-    Model: bookshelf.knex,
+    Model: app.get('knex'),
     name: 'users',
     paginate: {
       default: 5,
@@ -17,15 +15,10 @@ export default function(){
     }
   };
 
-  // Initialize our service with any options it requires
-  app.use('/users', service(options));
+  app.use('/users', new UserService(options));
 
-  // Get our initialize service to that we can bind hooks
   const userService = app.service('/users');
 
-  // Set up our before hooks
   userService.before(before);
-
-  // Set up our after hooks
   userService.after(after);
 };

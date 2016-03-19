@@ -1,6 +1,9 @@
-export default function(bookshelf) {
-  // require (some other model).default(bookshelf)
-  return bookshelf.model('User', {
-    tablename: 'users'
-  });
-}
+import bookshelf from '../../bookshelf';
+import Role from './role-model';
+
+export default bookshelf.model('User', {
+  tableName: 'users',
+  roles: function() {
+    return this.belongsToMany('Role', 'users_roles');
+  }
+});

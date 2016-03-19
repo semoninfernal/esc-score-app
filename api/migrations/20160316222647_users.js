@@ -15,7 +15,7 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  knex.schema.dropTable('users')
-    .dropTable('roles')
-    .dropTable('users_roles');
+  return knex.schema.dropTable('users_roles')
+    .dropTable('users')
+    .dropTable('roles');
 };
