@@ -1,4 +1,5 @@
 import { Service } from 'feathers-knex';
+import errors from 'feathers-errors';
 import errorHandler from '../errors';
 import RoleModel from './role-model';
 import User from './user-model';
@@ -13,5 +14,17 @@ export default class UserService extends Service {
         });
       })
       .catch(errorHandler);
+  }
+
+  remove() {
+    throw new errors.MethodNotAllowed('Deleting users is not yet supported');
+  }
+
+  patch() {
+    throw new errors.MethodNotAllowed('Patching users is not yet supported');
+  }
+
+  update() {
+    throw new errors.MethodNotAllowed('Updating users is not yet supported');
   }
 }
