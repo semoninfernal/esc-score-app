@@ -7,7 +7,8 @@ const config = require(`../../config/${configName}`);
 const knex = _knex({
   client: 'pg',
   connection: config.postgres,
-  searchPath: 'knex,public'
+  searchPath: 'knex,public',
+  debug: true
 });
 
 const bookshelf = _bookshelf(knex);
