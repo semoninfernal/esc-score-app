@@ -1,5 +1,5 @@
 import { Service } from 'feathers-knex';
-//import errorHandler from 'feathers-knex/errorHandler';
+import errorHandler from '../errors';
 import RoleModel from './role-model';
 import User from './user-model';
 
@@ -12,6 +12,6 @@ export default class UserService extends Service {
           withRelated: 'roles'
         });
       })
-      .catch(err => { throw err });
+      .catch(errorHandler);
   }
 }
