@@ -60,8 +60,17 @@ export default class EventService extends Service {
       .catch(errorHandler);
   }
 
-  patch() {
-    throw new errors.MethodNotAllowed('Patching events is not yet supported');
+  patch(id, data, params) {
+    // Only allow active to be patched
+    data = {
+      active: !!data.active
+    }
+    return this.db()
+      .where({id})
+      .update(data, 'id')
+      .then(id => {
+        return this.get(id[0], params)
+      });
   }
 
   update() {

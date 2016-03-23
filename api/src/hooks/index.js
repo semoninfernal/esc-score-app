@@ -30,3 +30,12 @@ export function cleanResult(...attrs) {
     return hook;
   }
 }
+
+export function populateEvent() {
+  return hook => {
+    if (hook.params.provider === 'rest') {
+      hook.params.query.eventId = hook.params.eventId;
+    }
+    return hook;
+  }
+}

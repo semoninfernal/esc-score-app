@@ -1,5 +1,6 @@
 import user from './user';
 import event from './event';
+import scoreTypes from './scoreTypes';
 import authentication from './authentication';
 import bookshelf from '../bookshelf';
 import knex from 'knex';
@@ -18,4 +19,5 @@ export default function() {
   app.configure(authentication);
   app.configure(user);
   app.configure(event);
+  app.configure(scoreTypes);
 };

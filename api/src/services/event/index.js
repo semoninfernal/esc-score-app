@@ -1,6 +1,7 @@
 import service from 'feathers-knex';
 import EventService from './event-service';
 import { before, after } from './hooks';
+import { events } from '../names';
 
 export default function() {
   const app = this;
@@ -14,9 +15,9 @@ export default function() {
     }
   };
 
-  app.use('/events', new EventService(options));
+  app.use(events, new EventService(options));
 
-  const eventService = app.service('/events');
+  const eventService = app.service(events);
 
   eventService.before(before);
   eventService.after(after);
