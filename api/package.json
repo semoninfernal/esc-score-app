@@ -19,6 +19,7 @@
     "start": "node src/",
     "jshint": "jshint src/. test/. --config",
     "mocha": "mocha test/ --recursive",
+    "reset": "knex migrate:rollback &&knex migrate:latest &&knex seed:run",
     "test": "npm run jshint && npm run mocha"
   },
   "dependencies": {

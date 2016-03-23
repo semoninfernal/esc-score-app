@@ -14,11 +14,15 @@ function uniqueViolationError(err) {
 }
 
 function knexHandler(err) {
+  console.error(err);
   switch (err.code) {
     case codes.UNIQUE_VIOLATION:
       throw uniqueViolationError(err);
     default:
-      throw errors.GeneralError('Error in application')
+      if (err.type !== 'FeathersError') {
+        throw new errors.GeneralError('Error in application')
+      }
+      throw err;
   }
 }
 

@@ -1,4 +1,4 @@
-import { isFunction } from 'lodash';
+import { isFunction, isArray } from 'lodash';
 
 function removeAttributes(result, attrs) {
   for (const prop of attrs) {
@@ -19,8 +19,8 @@ export function cleanResult(...attrs) {
     }
 
     // We need to mutate the hook to avoid circular references
-    if (hook.result.data) {
-      for (const item of hook.result.data) {
+    if (isArray(hook.result)) {
+      for (const item of hook.result) {
         removeAttributes(item, attrs);
       }
     } else {

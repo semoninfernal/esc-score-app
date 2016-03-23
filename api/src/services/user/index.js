@@ -10,7 +10,7 @@ export default function() {
     Model: app.get('knex'),
     name: 'users',
     paginate: {
-      default: 5,
+      default: false,
       max: 25
     }
   };

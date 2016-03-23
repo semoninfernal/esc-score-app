@@ -1,5 +1,5 @@
-import bookshelf from '../../bookshelf';
-import User from './user-model';
+import bookshelf from '../../../bookshelf';
+import User from './user';
 
 export default bookshelf.model('Role', {
   tableName: 'roles',

@@ -1,19 +1,19 @@
 import { Service } from 'feathers-knex';
+import bookshelf from '../../bookshelf';
 import errors from 'feathers-errors';
 import errorHandler from '../errors';
-import RoleModel from './role-model';
-import User from './user-model';
+import RoleModel from './models/role';
+import User from './models/user';
 
 export default class UserService extends Service {
   create(data, params) {
-    return new User(data).save()
-      .then(user => {
-        user.roles().attach(1);
-        return user.fetch({
+    return new User(data)
+        .save()
+        .tap(user => user.roles().attach(1))
+        .then(user => user.fetch({
           withRelated: 'roles'
-        });
-      })
-      .catch(errorHandler);
+        }))
+        .catch(errorHandler);
   }
 
   remove() {
