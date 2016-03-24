@@ -2,16 +2,6 @@ import { Service } from 'feathers-knex';
 import errors from 'feathers-errors';
 import errorHandler from '../errors';
 
-function formatScoreType({id, eventId, name, min, max}) {
-  return {
-    id,
-    eventID,
-    name,
-    min,
-    max
-  };
-}
-
 export default class EventService extends Service {
   find(params) {
     let query = this.db().select('*');
@@ -39,8 +29,6 @@ export default class EventService extends Service {
     }).catch(errorHandler)
   }
 
-  // TODO Add a token to this that allows you to create an event, this is to prevent spamming of events
-  // Validate in before hook
   create(data, params) {
     const d = {
       ...data,

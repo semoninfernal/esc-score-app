@@ -1,5 +1,5 @@
 import service from 'feathers-knex';
-import ScoreTypeService from './scoreTypes-service';
+import ScoreTypeService from './scoreType-service';
 import { before, after } from './hooks';
 import { scoreTypes } from './../names';
 

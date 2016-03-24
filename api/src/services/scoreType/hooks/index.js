@@ -13,7 +13,7 @@ export const before = {
     auth.verifyToken(),
     auth.populateUser(),
     auth.requireAuth(),
-    validateOwner(validateOwnerOptions)
+    validateOwner(validateOwnerOptions) // TODO This should be validateMember
   ],
   get: [
     auth.verifyToken(),
