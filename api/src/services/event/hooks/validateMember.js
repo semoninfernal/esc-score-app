@@ -1,10 +1,11 @@
 import errors from 'feathers-errors';
+import * as names from '../../names';
+import clone from 'lodash/clone';
 
-// This can be made a general validation function by specifying:
-// serviceName
-// validation
 const defaultOptions = {
-  eventId: hook => hook.id
+  id: hook => hook.id,
+  eventId: hook => hook.params.eventId,
+  service: names.members
 }
 
 export default function(options = {}) {
@@ -12,24 +13,20 @@ export default function(options = {}) {
     ...defaultOptions,
     ...options
   };
-
   return hook => {
-    const { id, method, params } = hook;
+    const { params } = hook;
 
+    if (!params.provider) {
+      return hook;
+    }
+
+    // NOTE This feels a bit odd since it expects a certain behaviour from the service
     return new Promise((resolve, reject) => {
-      hook.app.service('/events').get(options.eventId(hook), params).then(event => {
-        const notOwner = event && !event.owner;
-
-        if (method === 'remove' && notOwner) {
-          reject(new errors.Forbidden('You can not delete what does not belong to you!'));
-        } else if (method === 'patch' && notOwner) {
-          reject(new errors.Forbidden('You can not edit what does not belong to you'));
-        } else if (method === 'create' && notOwner) {
-          reject(new errors.Forbidden('You can not create in what does not belong to you'));
-        } else {
-          resolve(hook);
-        }
-      }).catch(reject);
+      hook.app.service(names.events).get(params.eventId, params)
+        .then(() => {
+          resolve(hook)
+        })
+        .catch(reject);
     });
   }
 }

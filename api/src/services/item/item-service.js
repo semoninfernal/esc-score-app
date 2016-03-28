@@ -2,18 +2,18 @@ import { Service } from 'feathers-knex';
 import errors from 'feathers-errors';
 import errorHandler from '../errors';
 
-export default class ScoreTypeService extends Service {
+export default class ItemService extends Service {
   find(params) {
     let query = this.db().select('*');
 
     if (params.query.id) {
-      query = query.where({['id']: params.query.id})
+      query = query.where({id: params.query.id})
     }
 
     return this.db()
-      .select('*')
-      .where({event_id: params.eventId}).then(scoreTypes => {
-        return scoreTypes
+      .select('id', 'event_id', 'name', 'description', 'image', 'sort_index')
+      .then(items => {
+        return items
       }).catch(errorHandler);
   }
 
@@ -23,7 +23,7 @@ export default class ScoreTypeService extends Service {
 
     return this.find(params).then(result => {
       if (!result.length) {
-        throw new errors.NotFound(`No event found for id ${id}`)
+        throw new errors.NotFound(`No member found for id ${id}`)
       }
       return result[0];
     }).catch(errorHandler)
@@ -34,13 +34,23 @@ export default class ScoreTypeService extends Service {
       ...data,
       event_id: params.eventId
     };
+
     return this.db()
       .insert(d, 'id')
       .then(rows => {
-        return this.db().select('*').where({id: rows[0]}).then(scoreType => {
-          return scoreType;
-        });
-      });
+        return this.get(rows[0], params)
+          .then(item => item)
+      }).catch(errorHandler);
+  }
+
+  remove(id, params) {
+    const item = this.get(id, params);
+
+    return this.db()
+      .where({event_id: params.eventId, user_id: id})
+      .del().then(() => {
+        return item;
+      }).catch(errorHandler);
   }
 
   patch(id, data, params) {

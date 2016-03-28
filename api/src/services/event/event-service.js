@@ -16,7 +16,6 @@ const formatEvent = ({id, name, active, owner}) => ({
 export default class EventService extends Service {
   find(params) {
     let query = this.db().select('*');
-
     if (params.query.id) {
       query = query.where({['events.id']: params.query.id})
     }
@@ -30,10 +29,15 @@ export default class EventService extends Service {
   }
 
   get(id, params = {}) {
-    params.query = params.query || {};
-    params.query.id = id;
+    const _params = {
+      ...params,
+      query: {
+        ...params.query,
+        id: id
+      }
+    }
 
-    return this.find(params).then(result => {
+    return this.find(_params).then(result => {
       if (!result.length) {
         throw new errors.NotFound(`No event found for id ${id}`)
       }

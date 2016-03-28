@@ -2,16 +2,15 @@ import { Service } from 'feathers-knex';
 import errors from 'feathers-errors';
 import errorHandler from '../errors';
 
-export default class EventService extends Service {
+export default class MemberService extends Service {
   find(params) {
-    let query = this.db().select('*');
+    let query = this.db().select('users.id', 'users.user_name', 'event_members.owner');
 
     if (params.query.id) {
       query = query.where({['event_members.user_id']: params.query.id})
     }
 
-    return this.db()
-      .select('users.id', 'users.user_name', 'event_members.owner')
+    return query
       .innerJoin('users', 'event_members.user_id', 'users.id')
       .where({['event_members.event_id']: params.eventId}).then(members => {
         return members
@@ -19,15 +18,24 @@ export default class EventService extends Service {
   }
 
   get(id, params = {}) {
-    params.query = params.query || {};
-    params.query.id = id;
-
-    return this.find(params).then(result => {
-      if (!result.length) {
-        throw new errors.NotFound(`No member found for id ${id}`)
+    const _params = {
+      ...params,
+      query: {
+        ...params.query,
+        id: id
       }
-      return result[0];
-    }).catch(errorHandler)
+    }
+
+    return this.find(_params)
+      .then(result => {
+        if (!result.length) {
+          throw new errors.NotFound(`No member found for id ${id}`)
+        }
+        return result[0];
+      }).catch(error => {
+        console.log('catch error in get');
+        errorHandler(error);
+      })
   }
 
   create(data, params) {
