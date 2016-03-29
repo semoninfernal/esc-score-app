@@ -1,5 +1,4 @@
 import authentication from 'feathers-authentication';
-import { cleanResult } from '../../../hooks/index';
 
 const auth = authentication.hooks;
 
@@ -36,7 +35,5 @@ export const before = {
 };
 
 export const after = {
-  all: [
-    cleanResult('password')
-  ]
+  all: []
 };

@@ -3,7 +3,7 @@ import errors from 'feathers-errors';
 import errorHandler from '../errors';
 
 export default class MemberService extends Service {
-  find(params) {
+  _find(params) {
     let query = this.db().select('users.id', 'users.user_name', 'event_members.owner');
 
     if (params.query.id) {
@@ -17,25 +17,28 @@ export default class MemberService extends Service {
       }).catch(errorHandler);
   }
 
-  get(id, params = {}) {
-    const _params = {
-      ...params,
-      query: {
-        ...params.query,
-        id: id
-      }
-    }
+  find(params) {
+    return this._find(params);
+  }
 
-    return this.find(_params)
+  _get(id, params) {
+    params.query = params.query || {};
+    params.query.id = id;
+
+    return this._find(params)
       .then(result => {
         if (!result.length) {
           throw new errors.NotFound(`No member found for id ${id}`)
         }
         return result[0];
       }).catch(error => {
-        console.log('catch error in get');
+        console.log('catch error in get member');
         errorHandler(error);
       })
+  }
+
+  get(id, params = {}) {
+    return this._get(id, params);
   }
 
   create(data, params) {
@@ -48,13 +51,13 @@ export default class MemberService extends Service {
     return this.db()
       .insert(d)
       .then(() => {
-        return this.get(d.user_id, params)
+        return this._get(d.user_id, params)
           .then(member => member)
       }).catch(errorHandler);
   }
 
   remove(id, params) {
-    const item = this.get(id, params);
+    const item = this._get(id, params);
 
     return this.db()
       .where({event_id: params.eventId, user_id: id})
@@ -64,10 +67,10 @@ export default class MemberService extends Service {
   }
 
   patch(id, data, params) {
-    throw new errors.MethodNotAllowed('Updating events is not yet supported');
+    throw new errors.MethodNotAllowed('Updating members is not supported');
   }
 
   update() {
-    throw new errors.MethodNotAllowed('Updating events is not yet supported');
+    throw new errors.MethodNotAllowed('Updating members is not suported');
   }
 }

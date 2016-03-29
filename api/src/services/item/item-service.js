@@ -12,6 +12,7 @@ export default class ItemService extends Service {
 
     return this.db()
       .select('id', 'event_id', 'name', 'description', 'image', 'sort_index')
+      .where({event_id: params.eventId})
       .then(items => {
         return items
       }).catch(errorHandler);
@@ -21,7 +22,7 @@ export default class ItemService extends Service {
     params.query = params.query || {};
     params.query.id = id;
 
-    return this.find(params).then(result => {
+    return this.find(_params).then(result => {
       if (!result.length) {
         throw new errors.NotFound(`No member found for id ${id}`)
       }

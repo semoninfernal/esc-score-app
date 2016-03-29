@@ -1,10 +1,6 @@
 import authentication from 'feathers-authentication';
-import validateOwner from '../../event/hooks/validateOwner';
-import validateMember from '../../event/hooks/validateMember';
-
-const validateOwnerOptions = {
-  eventId: hook => hook.params.eventId
-};
+import { populateEvents, validateMembership, validateOwnership } from '../../../hooks';
+import ensureNotRemoveSelf from './ensureNotRemoveSelf';
 
 const auth = authentication.hooks;
 
@@ -14,41 +10,48 @@ export const before = {
     auth.verifyToken(),
     auth.populateUser(),
     auth.requireAuth(),
-    validateMember()
+    populateEvents(),
+    validateMembership()
   ],
   get: [
     auth.verifyToken(),
     auth.populateUser(),
     auth.requireAuth(),
-    validateMember()
+    populateEvents(),
+    validateMembership()
   ],
   create: [
     auth.verifyToken(),
     auth.populateUser(),
     auth.requireAuth(),
-    validateMember(),
-    validateOwner(validateOwnerOptions)
+    populateEvents(),
+    validateMembership(),
+    validateOwnership()
   ],
   update: [
     auth.verifyToken(),
     auth.populateUser(),
     auth.requireAuth(),
-    validateMember(),
-    validateOwner(validateOwnerOptions)
+    populateEvents(),
+    validateMembership(),
+    validateOwnership()
   ],
   patch: [
     auth.verifyToken(),
     auth.populateUser(),
     auth.requireAuth(),
-    validateMember(),
-    validateOwner(validateOwnerOptions)
+    populateEvents(),
+    validateMembership(),
+    validateOwnership()
   ],
   remove: [
     auth.verifyToken(),
     auth.populateUser(),
     auth.requireAuth(),
-    validateMember(),
-    validateOwner(validateOwnerOptions)
+    populateEvents(),
+    validateMembership(),
+    validateOwnership(),
+    ensureNotRemoveSelf()
   ]
 };
 

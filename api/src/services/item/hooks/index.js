@@ -1,9 +1,5 @@
 import authentication from 'feathers-authentication';
-import validateOwner from '../../event/hooks/validateOwner';
-
-const validateOwnerOptions = {
-  eventId: hook => hook.params.eventId
-};
+import { populateEvents, validateMembership, validateOwnership } from '../../../hooks';
 
 const auth = authentication.hooks;
 
@@ -13,35 +9,42 @@ export const before = {
     auth.verifyToken(),
     auth.populateUser(),
     auth.requireAuth(),
-    //validateOwner(validateOwnerOptions) // TODO Validate membership
+    populateEvents(),
+    validateMembership(),
   ],
   get: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.requireAuth(), // TODO Validate membership
+    populateEvents(),
+    validateMembership()
   ],
   create: [
     auth.verifyToken(),
     auth.populateUser(),
     auth.requireAuth(),
-    validateOwner(validateOwnerOptions)
+    populateEvents(),
+    validateOwnership()
   ],
   update: [
     auth.verifyToken(),
     auth.populateUser(),
     auth.requireAuth(),
-    validateOwner(validateOwnerOptions)
+    populateEvents(),
+    validateOwnership()
   ],
   patch: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.requireAuth()
+    auth.requireAuth(),
+    populateEvents(),
+    validateOwnership()
   ],
   remove: [
     auth.verifyToken(),
     auth.populateUser(),
     auth.requireAuth(),
-    validateOwner(validateOwnerOptions)
+    populateEvents(),
+    validateOwnership()
   ]
 };
 

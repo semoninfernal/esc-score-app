@@ -29,15 +29,10 @@ export default class EventService extends Service {
   }
 
   get(id, params = {}) {
-    const _params = {
-      ...params,
-      query: {
-        ...params.query,
-        id: id
-      }
-    }
+    params.query = params.query || {};
+    params.query.id = id;
 
-    return this.find(_params).then(result => {
+    return this.find(params).then(result => {
       if (!result.length) {
         throw new errors.NotFound(`No event found for id ${id}`)
       }
