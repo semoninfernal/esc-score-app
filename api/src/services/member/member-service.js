@@ -4,7 +4,7 @@ import errorHandler from '../errors';
 
 export default class MemberService extends Service {
   _find(params) {
-    let query = this.db().select('users.id', 'users.user_name', 'event_members.owner');
+    let query = this.db().select('users.id', 'users.username', 'event_members.owner');
 
     if (params.query.id) {
       query = query.where({['event_members.user_id']: params.query.id})

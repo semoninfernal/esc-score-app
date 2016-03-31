@@ -8,7 +8,7 @@ export const before = {
   find: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.requireAuth(),
+    auth.restrictToAuthenticated(),
     populateEvents(),
     validateMembership(),
   ],
@@ -21,28 +21,28 @@ export const before = {
   create: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.requireAuth(),
+    auth.restrictToAuthenticated(),
     populateEvents(),
     validateOwnership()
   ],
   update: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.requireAuth(),
+    auth.restrictToAuthenticated(),
     populateEvents(),
     validateOwnership()
   ],
   patch: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.requireAuth(),
+    auth.restrictToAuthenticated(),
     populateEvents(),
     validateOwnership()
   ],
   remove: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.requireAuth(),
+    auth.restrictToAuthenticated(),
     populateEvents(),
     validateOwnership()
   ]

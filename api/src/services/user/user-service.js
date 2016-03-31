@@ -1,19 +1,54 @@
 import { Service } from 'feathers-knex';
-import bookshelf from '../../bookshelf';
 import errors from 'feathers-errors';
 import errorHandler from '../errors';
-import RoleModel from './models/role';
-import User from './models/user';
 
 export default class UserService extends Service {
+  /* _find(params) {
+    let query = this.db().select('id', 'username', 'password');
+
+    if (params.query.id) {
+      query = query.where({id: params.query.id})
+    }
+
+    return query.then(users => {
+        return users
+      }).catch(errorHandler);
+  }
+
+  find(params) {
+    return this._find(params);
+  }
+
+  _get(id, params) {
+    params.query = params.query || {};
+    params.query.id = id;
+
+    return this._find(params)
+      .then(result => {
+        if (!result || result.length === 0) {
+          throw new errors.NotFound(`No user found with id ${id}`)
+        }
+        return result[0];
+      }).catch(errorHandler);
+  }
+
+  get(id, params) {
+    return this._get(id, params);
+  }
+
+  get(id, params) {
+    console.log('GET');
+
+    return super.get(id, params);
+  } */
+
   create(data, params) {
-    return new User(data)
-        .save()
-        .tap(user => user.roles().attach(1))
-        .then(user => user.fetch({
-          withRelated: 'roles'
-        }))
-        .catch(errorHandler);
+    return this.db()
+      .insert(data, 'id')
+      .then(rows => {
+        return this._get(rows[0], params)
+      })
+      .catch(errorHandler);
   }
 
   remove() {

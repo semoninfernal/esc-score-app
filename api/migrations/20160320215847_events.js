@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
       table.increments('id').primary();
       table.string('name')/*.unique()*/.notNullable();
       table.boolean('active').defaultTo(false);
-      table.timestamps();
+      // table.timestamps();
     }).createTable('event_members', function(table) {
       table.integer('user_id').references('users.id').onDelete('CASCADE');
       table.integer('event_id').references('events.id').onDelete('CASCADE');
@@ -16,7 +16,7 @@ exports.up = function(knex, Promise) {
       table.string('name').unique();
       table.integer('min');
       table.integer('max');
-      table.timestamps();
+      // table.timestamps();
   });
 };
 

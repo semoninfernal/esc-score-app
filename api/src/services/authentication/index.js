@@ -6,9 +6,9 @@ export default function() {
   let config = {
     ...app.get('auth'),
     idField: 'id',
-    usernameField: 'user_name'
+    usernameField: 'username'
   };
-
+  
   app.set('auth', config);
   app.configure(authentication(config));
 }

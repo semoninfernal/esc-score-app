@@ -12,36 +12,36 @@ export const before = {
   find: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.requireAuth()
+    auth.restrictToAuthenticated()
   ],
   get: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.requireAuth(),
+    auth.restrictToAuthenticated(),
   ],
   create: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.requireAuth()
+    auth.restrictToAuthenticated()
   ],
   update: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.requireAuth(),
+    auth.restrictToAuthenticated(),
     populateEvents(),
     validateOwnership(ownerOptions)
   ],
   patch: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.requireAuth(),
+    auth.restrictToAuthenticated(),
     populateEvents(),
     validateOwnership(ownerOptions)
   ],
   remove: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.requireAuth(),
+    auth.restrictToAuthenticated(),
     populateEvents(),
     validateOwnership(ownerOptions)
   ]

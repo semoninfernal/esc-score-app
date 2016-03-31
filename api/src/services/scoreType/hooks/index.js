@@ -7,7 +7,7 @@ export const before = {
   all: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.requireAuth(),
+    auth.restrictToAuthenticated(),
     populateEvents(),
     validateMembership(),
     validateOwnership()

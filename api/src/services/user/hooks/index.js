@@ -1,4 +1,5 @@
 import authentication from 'feathers-authentication';
+import { remove } from '../../../hooks';
 
 const auth = authentication.hooks;
 
@@ -7,12 +8,12 @@ export const before = {
   find: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.requireAuth()
+    auth.restrictToAuthenticated()
   ],
   get: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.requireAuth()
+    auth.restrictToAuthenticated()
   ],
   create: [
     auth.hashPassword()
@@ -20,20 +21,22 @@ export const before = {
   update: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.requireAuth()
+    auth.restrictToAuthenticated()
   ],
   patch: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.requireAuth()
+    auth.restrictToAuthenticated()
   ],
   remove: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.requireAuth()
+    auth.restrictToAuthenticated()
   ]
 };
 
 export const after = {
-  all: []
+  all: [
+    remove('password', 'admin')
+  ]
 };

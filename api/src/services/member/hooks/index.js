@@ -9,21 +9,21 @@ export const before = {
   find: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.requireAuth(),
+    auth.restrictToAuthenticated(),
     populateEvents(),
     validateMembership()
   ],
   get: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.requireAuth(),
+    auth.restrictToAuthenticated(),
     populateEvents(),
     validateMembership()
   ],
   create: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.requireAuth(),
+    auth.restrictToAuthenticated(),
     populateEvents(),
     validateMembership(),
     validateOwnership()
@@ -31,7 +31,7 @@ export const before = {
   update: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.requireAuth(),
+    auth.restrictToAuthenticated(),
     populateEvents(),
     validateMembership(),
     validateOwnership()
@@ -39,7 +39,7 @@ export const before = {
   patch: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.requireAuth(),
+    auth.restrictToAuthenticated(),
     populateEvents(),
     validateMembership(),
     validateOwnership()
@@ -47,7 +47,7 @@ export const before = {
   remove: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.requireAuth(),
+    auth.restrictToAuthenticated(),
     populateEvents(),
     validateMembership(),
     validateOwnership(),
