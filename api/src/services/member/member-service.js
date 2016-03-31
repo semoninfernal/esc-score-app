@@ -31,19 +31,12 @@ export default class MemberService extends Service {
           throw new errors.NotFound(`No member found for id ${id}`)
         }
         return result[0];
-      }).catch(error => {
-        console.log('catch error in get member');
-        errorHandler(error);
-      })
-  }
-
-  get(id, params = {}) {
-    return this._get(id, params);
+      }).catch(errorHandler)
   }
 
   create(data, params) {
     const d = {
-      user_id: data.user,
+      user_id: data.userId,
       event_id: params.eventId
     };
 
@@ -51,7 +44,7 @@ export default class MemberService extends Service {
     return this.db()
       .insert(d)
       .then(() => {
-        return this._get(d.user_id, params)
+        return this.get(d.user_id, { ...params, provider: undefined})
           .then(member => member)
       }).catch(errorHandler);
   }

@@ -8,7 +8,7 @@ export default function() {
     idField: 'id',
     usernameField: 'username'
   };
-  
+
   app.set('auth', config);
   app.configure(authentication(config));
 }

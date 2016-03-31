@@ -14,7 +14,7 @@ const formatEvent = ({id, name, active, owner}) => ({
 });
 
 export default class EventService extends Service {
-  find(params) {
+  _find(params) {
     let query = this.db().select('*');
     if (params.query.id) {
       query = query.where({['events.id']: params.query.id})
@@ -28,11 +28,15 @@ export default class EventService extends Service {
       }).catch(errorHandler);
   }
 
-  get(id, params = {}) {
+  find(params) {
+    return this._find(params);
+  }
+
+  _get(id, params = {}) {
     params.query = params.query || {};
     params.query.id = id;
 
-    return this.find(params).then(result => {
+    return this._find(params).then(result => {
       if (!result.length) {
         throw new errors.NotFound(`No event found for id ${id}`)
       }
@@ -40,23 +44,28 @@ export default class EventService extends Service {
     }).catch(errorHandler)
   }
 
-  // TODO Add a token to this that allows you to create an event, this is to prevent spamming of events
-  // Validate in before hook
-  create(data, params) {
+  _create(data, params) {
     return this.db()
       .insert(data, 'id')
-      .tap(id => {
+      .tap(rows => {
+        // Add current user as owner of event
         return this.knex.insert({
           user_id: params.user.id,
-          event_id: id[0],
+          event_id: rows[0],
           owner: true
         }).into('event_members');
       })
       .then(rows => {
-        return this.get(rows[0], params)
+        return this._get(rows[0], params)
           .then(formatEvent);
       })
       .catch(errorHandler);
+  }
+
+  // TODO Add a token to this that allows you to create an event, this is to prevent spamming of events
+  // Validate in before hook
+  create(data, params) {
+    return this._create(data, params);
   }
 
   patch(id, data, params) {
@@ -68,7 +77,7 @@ export default class EventService extends Service {
       .where({id})
       .update(data, 'id')
       .then(id => {
-        return this.get(id[0], params)
+        return this._get(id[0], params)
       });
   }
 
