@@ -4,10 +4,10 @@ import errorHandler from '../errors';
 
 export default class MemberService extends Service {
   _find(params) {
-    let query = this.db().select('users.id', 'users.username', 'event_members.owner');
+    let query = this.db().select('event_members.id', 'users.id as user_id', 'users.username', 'event_members.owner');
 
     if (params.query.id) {
-      query = query.where({['event_members.user_id']: params.query.id})
+      query = query.where({['event_members.id']: params.query.id})
     }
 
     return query
@@ -35,16 +35,16 @@ export default class MemberService extends Service {
   }
 
   create(data, params) {
-    const d = {
+    const _data = {
       user_id: data.userId,
       event_id: params.eventId
     };
 
     // Check if user exists in hooks
     return this.db()
-      .insert(d)
-      .then(() => {
-        return this.get(d.user_id, { ...params, provider: undefined})
+      .insert(_data, 'id')
+      .then(rows => {
+        return this._get(rows[0], params)
           .then(member => member)
       }).catch(errorHandler);
   }
@@ -53,7 +53,7 @@ export default class MemberService extends Service {
     const item = this._get(id, params);
 
     return this.db()
-      .where({event_id: params.eventId, user_id: id})
+      .where({event_id: params.eventId, id})
       .del().then(() => {
         return item;
       }).catch(errorHandler);

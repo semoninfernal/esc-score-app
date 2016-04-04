@@ -6,9 +6,9 @@ exports.up = function(knex, Promise) {
       table.boolean('active').defaultTo(false);
       // table.timestamps();
     }).createTable('event_members', function(table) {
+      table.increments('id').primary();
       table.integer('user_id').references('users.id').onDelete('CASCADE');
       table.integer('event_id').references('events.id').onDelete('CASCADE');
-      table.primary(['user_id', 'event_id']);
       table.boolean('owner').defaultTo(false);
     }).createTable('event_score_types', function(table) {
       table.increments('id').primary();
@@ -17,6 +17,11 @@ exports.up = function(knex, Promise) {
       table.integer('min');
       table.integer('max');
       // table.timestamps();
+  }).then(() => {
+    return knex.schema.raw(`
+    ALTER TABLE event_members
+    ADD CONSTRAINT event_members_user_id_event_id UNIQUE (user_id, event_id)
+  `);
   });
 };
 

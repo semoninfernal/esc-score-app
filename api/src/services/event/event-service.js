@@ -15,7 +15,7 @@ const formatEvent = ({id, name, active, owner}) => ({
 
 export default class EventService extends Service {
   _find(params) {
-    let query = this.db().select('*');
+    let query = this.db().select('events.id', 'events.name', 'events.active', 'event_members.owner');
     if (params.query.id) {
       query = query.where({['events.id']: params.query.id})
     }
