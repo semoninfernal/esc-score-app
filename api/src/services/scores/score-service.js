@@ -5,14 +5,18 @@ import errorHandler from '../errors';
 export default class ScoreTypeService extends Service {
   _find(params) {
     let query = this.db().select('*');
-    console.log(params);
+
+    console.log(params.query);
+
     if (params.query.id) {
       query = query.where({id: params.query.id})
     }
 
-    return this.db()
-      .select('*')
-      .where({event_member_id: params.member.id, event_item_id: params.item.id}).then(scoreTypes => {
+    return query
+      .where({
+        event_member_id: params.member.id,
+        event_item_id: params.item.id})
+      .then(scoreTypes => {
         return scoreTypes
       }).catch(errorHandler);
   }
@@ -33,6 +37,10 @@ export default class ScoreTypeService extends Service {
     }).catch(errorHandler)
   }
 
+  get(id, params) {
+    return this._get(id, params);
+  }
+
   create(data, params) {
     return this.db()
       .insert({
@@ -41,7 +49,6 @@ export default class ScoreTypeService extends Service {
         event_member_id: params.member.id
       }, 'id')
       .then(rows => {
-        console.log(rows);
         return this._get(rows[0], params);
       });
   }
