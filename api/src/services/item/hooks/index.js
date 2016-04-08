@@ -1,5 +1,10 @@
 import authentication from 'feathers-authentication';
-import { populateEvents, validateMembership, validateOwnership } from '../../../hooks';
+import {
+  attachEventId,
+  populateEvents,
+  validateMembership,
+  validateOwnership,
+  validatePayload } from '../../../hooks';
 
 const auth = authentication.hooks;
 
@@ -23,7 +28,8 @@ export const before = {
     auth.populateUser(),
     auth.restrictToAuthenticated(),
     populateEvents(),
-    validateOwnership()
+    validateOwnership(),
+    attachEventId()
   ],
   update: [
     auth.verifyToken(),
@@ -37,7 +43,8 @@ export const before = {
     auth.populateUser(),
     auth.restrictToAuthenticated(),
     populateEvents(),
-    validateOwnership()
+    validateOwnership(),
+    validatePayload('name', 'description', 'image', 'sort_index')
   ],
   remove: [
     auth.verifyToken(),

@@ -1,6 +1,7 @@
 import knex from 'knex';
 import user from './user';
 import event from './event';
+import scores from './scores';
 import scoreType from './scoreType';
 import member from './member';
 import item from './item';
@@ -24,4 +25,5 @@ export default function() {
   app.configure(scoreType);
   app.configure(member);
   app.configure(item);
+  app.configure(scores);
 };

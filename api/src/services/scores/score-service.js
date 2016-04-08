@@ -2,19 +2,18 @@ import { Service } from 'feathers-knex';
 import errors from 'feathers-errors';
 import errorHandler from '../errors';
 
-export default class ItemService extends Service {
+export default class ScoreTypeService extends Service {
   _find(params) {
     let query = this.db().select('*');
-
+    console.log(params);
     if (params.query.id) {
       query = query.where({id: params.query.id})
     }
 
-    return query
-      .select('id', 'event_id', 'name', 'description', 'image', 'sort_index')
-      .where({event_id: params.eventId})
-      .then(items => {
-        return items
+    return this.db()
+      .select('*')
+      .where({event_member_id: params.member.id, event_item_id: params.item.id}).then(scoreTypes => {
+        return scoreTypes
       }).catch(errorHandler);
   }
 
@@ -22,13 +21,13 @@ export default class ItemService extends Service {
     return this._find(params);
   }
 
-  _get(id, params) {
+  _get(id, params = {}) {
     params.query = params.query || {};
     params.query.id = id;
 
     return this._find(params).then(result => {
       if (!result.length) {
-        throw new errors.NotFound(`No member found for id ${params.query.id}`)
+        throw new errors.NotFound(`No score found for id ${id}`)
       }
       return result[0];
     }).catch(errorHandler)
@@ -36,32 +35,24 @@ export default class ItemService extends Service {
 
   create(data, params) {
     return this.db()
-      .insert(data, 'id')
+      .insert({
+        ...data,
+        event_item_id: params.item.id,
+        event_member_id: params.member.id
+      }, 'id')
       .then(rows => {
-        return this._get(rows[0], params)
-          .then(item => item)
-      }).catch(errorHandler);
-  }
-
-  remove(id, params) {
-    const item = this._get(id, params);
-
-    return this.db()
-      .where({event_id: params.eventId, user_id: id})
-      .del().then(() => {
-        return item;
-      }).catch(errorHandler);
+        console.log(rows);
+        return this._get(rows[0], params);
+      });
   }
 
   patch(id, data, params) {
-
     return this.db()
       .where({id})
       .update(data, 'id')
       .then(rows => {
-        return this._get(rows[0], params)
-          .then(item => item);
-      }).catch(errorHandler);
+        return this._get(rows[0], params);
+      });
   }
 
   update() {
