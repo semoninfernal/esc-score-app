@@ -5,7 +5,6 @@ import errorHandler from '../errors';
 
 export default class ScoreTypeService extends Service {
   _find(params) {
-    console.log(params);
     let query = this.db().select('*');
 
     if (params.query.id) {
