@@ -5,6 +5,7 @@ import scores from './scores';
 import scoreType from './scoreType';
 import member from './member';
 import item from './item';
+import dashboard from './dashboard';
 import authentication from './authentication';
 
 export default function() {
@@ -26,4 +27,5 @@ export default function() {
   app.configure(member);
   app.configure(item);
   app.configure(scores);
+  app.configure(dashboard);
 };

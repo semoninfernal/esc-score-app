@@ -1,10 +1,16 @@
 import authentication from 'feathers-authentication';
-import { populateEvents, validateMembership, validateOwnership } from '../../../hooks';
+import {
+  populateEvents,
+  validateMembership,
+  validateOwnership,
+  toCamelCase,
+  toSnakeCase } from '../../../hooks';
 
 const auth = authentication.hooks;
 
 export const before = {
   all: [
+    toSnakeCase(),
     auth.verifyToken(),
     auth.populateUser(),
     auth.restrictToAuthenticated(),
@@ -15,5 +21,7 @@ export const before = {
 };
 
 export const after = {
-  all: []
+  all: [
+    toCamelCase()
+  ]
 };

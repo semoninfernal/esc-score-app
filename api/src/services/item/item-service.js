@@ -5,18 +5,13 @@ import errorHandler from '../errors';
 
 export default class ItemService extends Service {
   _find(params) {
-
-    /*
-     event_items.name,
-     event_items.description,
-     event_items.sort_index,
-     event_items.image,
-
-     */
-
     let query = this.knex.raw(`
       SELECT
         event_items.id,
+        event_items.name,
+        event_items.description,
+        event_items.sort_index,
+        event_items.image,
         sum(scores.value) AS score
       FROM event_items
       FULL OUTER JOIN (
@@ -27,11 +22,6 @@ export default class ItemService extends Service {
       GROUP BY event_items.id
       ORDER BY event_items.id
     `);
-
-    /*
-     *
-      * WHERE event_scores.event_member_id = ${params.member.id}
-     ${params.query.id ? 'AND event_items.id = ' + params.query.id : ''}*/
 
     return query
       .then(result => {
@@ -59,15 +49,15 @@ export default class ItemService extends Service {
       .insert(data, 'id')
       .then(rows => {
         return this._get(rows[0], params)
-          .then(item => item)
-      }).catch(errorHandler);
+      })
+      .catch(errorHandler);
   }
 
   remove(id, params) {
     const item = this._get(id, params);
 
     return this.db()
-      .where({event_id: params.eventId, user_id: id})
+      .where({id})
       .del().then(() => {
         return item;
       }).catch(errorHandler);

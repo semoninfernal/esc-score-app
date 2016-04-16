@@ -2,9 +2,9 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('event_scores', function(table) {
     table.increments('id').primary();
-    table.integer('event_member_id').references('event_members.id');
-    table.integer('score_type_id').references('event_score_types.id');
-    table.integer('event_item_id')
+    table.integer('event_member_id').references('event_members.id').onDelete('CASCADE');
+    table.integer('score_type_id').references('event_score_types.id').onDelete('CASCADE');
+    table.integer('event_item_id').references('event_items.id').onDelete('CASCADE');
     table.integer('value');
   }).then(() => {
     return knex.schema.raw(`

@@ -4,7 +4,9 @@ import {
   populateEvents,
   validateMembership,
   validateOwnership,
-  validatePayload } from '../../../hooks';
+  validatePayload,
+  toCamelCase,
+  toSnakeCase } from '../../../hooks';
 
 const auth = authentication.hooks;
 
@@ -24,14 +26,17 @@ export const before = {
     validateMembership()
   ],
   create: [
+    toSnakeCase(),
     auth.verifyToken(),
     auth.populateUser(),
     auth.restrictToAuthenticated(),
     populateEvents(),
     validateOwnership(),
+    validateMembership(), // We just need the member in params
     attachEventId()
   ],
   update: [
+    toSnakeCase(),
     auth.verifyToken(),
     auth.populateUser(),
     auth.restrictToAuthenticated(),
@@ -39,11 +44,13 @@ export const before = {
     validateOwnership()
   ],
   patch: [
+    toSnakeCase(),
     auth.verifyToken(),
     auth.populateUser(),
     auth.restrictToAuthenticated(),
     populateEvents(),
     validateOwnership(),
+    validateMembership(), // We just need the member in params
     validatePayload('name', 'description', 'image', 'sort_index')
   ],
   remove: [
@@ -51,10 +58,13 @@ export const before = {
     auth.populateUser(),
     auth.restrictToAuthenticated(),
     populateEvents(),
-    validateOwnership()
+    validateOwnership(),
+    validateMembership(), // We just need the member in params
   ]
 };
 
 export const after = {
-  all: []
+  all: [
+    toCamelCase()
+  ]
 };

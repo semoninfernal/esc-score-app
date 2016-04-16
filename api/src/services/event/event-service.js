@@ -23,9 +23,8 @@ export default class EventService extends Service {
     return query
       .innerJoin('event_members', 'events.id', 'event_members.event_id')
       .where({['event_members.user_id']: params.user.id})
-      .then(events => {
-        return events.map(formatEvent);
-      }).catch(errorHandler);
+      .then(events => events)
+      .catch(errorHandler);
   }
 
   find(params) {

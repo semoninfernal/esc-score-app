@@ -40,6 +40,7 @@ export default class ScoreTypeService extends Service {
     return this._get(id, params);
   }
 
+  // TODO This needs to support several rows
   create(data, params) {
     return this.db()
       .insert({

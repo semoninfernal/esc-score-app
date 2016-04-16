@@ -35,14 +35,11 @@ export default class MemberService extends Service {
   }
 
   create(data, params) {
-    const _data = {
-      user_id: data.userId,
-      event_id: params.eventId
-    };
-
-    // Check if user exists in hooks
     return this.db()
-      .insert(_data, 'id')
+      .insert({
+        ...data,
+        event_id: params.eventId
+      }, 'id')
       .then(rows => {
         return this._get(rows[0], params)
           .then(member => member)
@@ -53,7 +50,7 @@ export default class MemberService extends Service {
     const item = this._get(id, params);
 
     return this.db()
-      .where({event_id: params.eventId, id})
+      .where({id})
       .del().then(() => {
         return item;
       }).catch(errorHandler);

@@ -2,9 +2,8 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('events', function(table) {
       table.increments('id').primary();
-      table.string('name')/*.unique()*/.notNullable();
+      table.string('name').notNullable();
       table.boolean('active').defaultTo(false);
-      // table.timestamps();
     }).createTable('event_members', function(table) {
       table.increments('id').primary();
       table.integer('user_id').references('users.id').onDelete('CASCADE');
@@ -16,7 +15,6 @@ exports.up = function(knex, Promise) {
       table.string('name').unique();
       table.integer('min');
       table.integer('max');
-      // table.timestamps();
   }).then(() => {
     return knex.schema.raw(`
     ALTER TABLE event_members
