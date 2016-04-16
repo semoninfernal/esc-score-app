@@ -1,12 +1,12 @@
 import { Service } from 'feathers-knex';
 import errors from 'feathers-errors';
+import { assignId } from '../../utils/params';
 import errorHandler from '../errors';
 
 export default class ScoreTypeService extends Service {
   _find(params) {
+    console.log(params);
     let query = this.db().select('*');
-
-    console.log(params.query);
 
     if (params.query.id) {
       query = query.where({id: params.query.id})
@@ -26,10 +26,9 @@ export default class ScoreTypeService extends Service {
   }
 
   _get(id, params = {}) {
-    params.query = params.query || {};
-    params.query.id = id;
+    const _params = assignId(id, params);
 
-    return this._find(params).then(result => {
+    return this._find(_params).then(result => {
       if (!result.length) {
         throw new errors.NotFound(`No score found for id ${id}`)
       }
@@ -50,7 +49,8 @@ export default class ScoreTypeService extends Service {
       }, 'id')
       .then(rows => {
         return this._get(rows[0], params);
-      });
+      })
+      .catch(errorHandler);
   }
 
   patch(id, data, params) {

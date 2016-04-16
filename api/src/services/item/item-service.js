@@ -5,26 +5,37 @@ import errorHandler from '../errors';
 
 export default class ItemService extends Service {
   _find(params) {
-    let query = this.db().select(
-      'event_items.id',
-      'event_items.event_id',
-      'event_items.name',
-      'event_items.description',
-      'event_items.image',
-      'event_items.sort_index',
-      'event_scores.value'
-    );
 
-    if (params.query.id) {
-      query = query.where({['event_items.id']: params.query.id})
-    }
+    /*
+     event_items.name,
+     event_items.description,
+     event_items.sort_index,
+     event_items.image,
+
+     */
+
+    let query = this.knex.raw(`
+      SELECT
+        event_items.id,
+        sum(scores.value) AS score
+      FROM event_items
+      FULL OUTER JOIN (
+        SELECT value, id, event_item_id FROM event_scores WHERE event_scores.event_member_id = ${params.member.id}
+      ) scores
+        ON scores.event_item_id = event_items.id
+      ${params.query.id ? 'WHERE event_items.id = ' + params.query.id : ''}
+      GROUP BY event_items.id
+      ORDER BY event_items.id
+    `);
+
+    /*
+     *
+      * WHERE event_scores.event_member_id = ${params.member.id}
+     ${params.query.id ? 'AND event_items.id = ' + params.query.id : ''}*/
 
     return query
-      //.select('id', 'event_id', 'name', 'description', 'image', 'sort_index')
-      .innerJoin('event_scores', 'event_items.id', 'event_scores.event_item_id')
-      .where({['event_items.event_id']: params.eventId})
-      .then(items => {
-        return items
+      .then(result => {
+        return result.rows
       }).catch(errorHandler);
   }
 
@@ -37,7 +48,7 @@ export default class ItemService extends Service {
 
     return this._find(_params).then(result => {
       if (!result.length) {
-        throw new errors.NotFound(`No member found for id ${params.query.id}`)
+        throw new errors.NotFound(`No item found for id ${params.query.id}`)
       }
       return result[0];
     }).catch(errorHandler)

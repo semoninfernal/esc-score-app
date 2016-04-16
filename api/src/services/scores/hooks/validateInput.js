@@ -8,10 +8,23 @@ export default function validateInput() {
       return hook;
     }
 
+    function getScoreTypeId() {
+      return new Promise(resolve => {
+        if (hook.method === 'create') {
+          resolve(hook.data.score_type_id);
+        } else {
+          hook.app.service(names.scores)._get(hook.id, hook.params)
+            .then(score => {
+              resolve(score.score_type_id)
+            });
+        }
+      });
+    }
+
     return new Promise((resolve, reject) => {
-      hook.app.service(names.scores)._get(hook.id, hook.params)
-        .then(score => {
-          hook.app.service(names.scoreTypes)._get(score.score_type_id, hook.params)
+      getScoreTypeId()
+        .then(id => {
+          hook.app.service(names.scoreTypes)._get(id, hook.params)
             .then(scoreType => {
               const { value } = hook.data;
               if (!value) {
