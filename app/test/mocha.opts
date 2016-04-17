@@ -1,0 +1,4 @@
+--colors
+--recursive
+--reporter nyan
+--compilers js:babel/register

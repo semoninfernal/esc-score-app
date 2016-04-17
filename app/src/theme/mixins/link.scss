@@ -1,0 +1,13 @@
+@mixin link($color, $hover) {
+	a {
+		transition: all 0.2s;
+		color: $color;
+		text-decoration: none;
+		&:visited, &:active {
+			color: $color;
+		}
+		&:hover, &:focus {
+			color: $hover
+		}
+	}
+}

@@ -1,0 +1,40 @@
+@import "variables";
+
+@mixin btn-cta() {
+	color: $color-4;
+	border-color: $color-4;
+
+	&:hover {
+		color: $color-3;
+		background-color: $color-4;
+	}
+}
+
+.btn, a.btn {
+	color: $color-2;
+	font-size: $font-size;
+	text-align: center;
+	font-weight: $fw-bold;
+	line-height: 1em;
+	border: 2px solid $color-2;
+	display: block;
+	width: 100%;
+	padding: 15px 10px;
+	cursor: pointer;
+	background-color: inherit;
+
+	transition: all .2s;
+
+	&:hover {
+		color: $color-3;
+		background-color: $color-2;
+	}
+
+	& + .btn {
+		margin-top: 15px;
+	}
+
+	&.btn-cta {
+		@include btn-cta();
+	}
+}

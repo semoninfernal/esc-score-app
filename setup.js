@@ -1,0 +1,1 @@
+// This script should run migrations and seeds

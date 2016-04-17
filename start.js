@@ -1,0 +1,1 @@
+// This script should start api and app both for developtment and production

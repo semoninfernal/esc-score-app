@@ -1,0 +1,7 @@
+@function floor($a, $b) {
+	@return if($a > $b, $a, $b);
+}
+
+@function roof($a, $b) {
+	@return if($a < $b, $a, $b);
+}

@@ -1,0 +1,9 @@
+@import "mixins/container";
+
+.container {
+	@include container();
+}
+
+ul {
+	list-style: none;
+}

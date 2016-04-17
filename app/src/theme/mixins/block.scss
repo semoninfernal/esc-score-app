@@ -1,0 +1,23 @@
+@import "variables";
+
+@mixin block($color: $color-1) {
+	background-color: $color;
+	padding: 15px 15px;
+	display: flex;
+	align-items: center;
+	color: $font-color;
+	> * {
+		&:first-child {
+			margin-top: 0;
+		}
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+	@if $color == $color-2 {
+		color: $color-3;
+	}
+	@if $color == $color-4 {
+		color: $color-3;
+	}
+}

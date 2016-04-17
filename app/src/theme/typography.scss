@@ -1,0 +1,46 @@
+@import 'variables';
+@import 'functions/math';
+@import 'mixins/link';
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
+
+$headers: 3;
+
+html {
+	font-family: $font-family;
+	font-size: $font-size;
+	color: $font-color;
+}
+
+@for $i from 1 to $headers + 1 {
+	$level: h#{$i};
+	#{$level}, .#{$level} {
+		font-size: $font-size * floor(1, ($headers/($i + 0.5)));
+		font-weight: 700;
+		margin-top: 1em;
+		margin-bottom: 0.2em;
+	}
+}
+
+@for $i from 1 to $headers + 1 {
+	$level: h#{$i};
+	#{$level}, .#{$level} {
+		&:first-child, + * {
+			margin-top: 0;
+		}
+	}
+}
+
+p, span, li {
+	font-size: $font-size;
+	color: inherit;
+}
+
+p {
+	line-height: 1.5em;
+	margin: 0;
+	+ p {
+		margin-top: 1em;
+	}
+}
+
+@include link($color-4, $color-4-tint);
