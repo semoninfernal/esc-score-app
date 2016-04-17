@@ -1,0 +1,5 @@
+@import 'mixins/page-container';
+
+.login-view {
+	@include page-container();
+}

@@ -1,5 +1,7 @@
 import App from './App/AppContainer';
+import Login from './Login/LoginContainer';
 
 export {
-  App
+	App,
+	Login
 };

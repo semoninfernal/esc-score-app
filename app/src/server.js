@@ -3,6 +3,7 @@ import path from 'path';
 import http from 'http';
 import httpProxy from 'http-proxy';
 import serveStatic from 'serve-static';
+import cookieParser from 'cookie-parser';
 // import favicon from 'serve-favicon';
 import config from './config';
 import React from 'react';
@@ -13,6 +14,7 @@ import { Provider } from 'react-redux';
 
 import Html from 'helpers/html';
 import getStatusFromRoutes from 'helpers/getStatusFromRoutes';
+import { getAuth } from 'helpers/auth';
 import createClient from 'helpers/apiClient';
 import createStore from 'redux/createStore';
 import getRoutes from 'routes';
@@ -22,6 +24,8 @@ const server = new http.Server(app);
 const proxy = httpProxy.createProxyServer({
 	target: `http://localhost:${config.api.port}`
 });
+
+app.use(cookieParser());
 
 app.use(serveStatic(path.join(__dirname, '..', 'static')));
 // App.use(favicon(path.join(__dirname, '..', 'static')));
@@ -39,8 +43,14 @@ app.use('*', (req, res) => {
 		webpackIsomorphicTools.refresh();
 	}
 
-	const client = createClient(req);
-	const store = createStore(client);
+	const initialState = {
+		data: {
+			auth: getAuth(req)
+		}
+	};
+
+	const client = createClient();
+	const store = createStore(client, initialState);
 
 	function hydrateOnClient() {
 		const content = '<!doctype html>\n' +

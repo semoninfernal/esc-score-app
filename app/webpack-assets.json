@@ -1,6 +1,6 @@
 {
   "javascript": {
-    "main": "http://localhost:3001/dist/main-1e4fa8424801880c94f4.js"
+    "main": "http://localhost:3001/dist/main-eb81c8984823488fc964.js"
   },
   "styles": {},
   "assets": {
@@ -11,8 +11,14 @@
       "container": "container",
       "_style": "@import url(https://fonts.googleapis.com/css?family=Roboto:400,700);/* http://meyerweb.com/eric/tools/css/reset/\n   v2.0 | 20110126\n   License: none (public domain)\n*/\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: inherit;\n  vertical-align: baseline;\n  box-sizing: border-box;\n}\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n  display: block;\n}\n\nbody {\n  line-height: 1;\n}\n\nol, ul {\n  list-style: none;\n}\n\nblockquote, q {\n  quotes: none;\n}\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none;\n}\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\n\nhtml {\n  font-family: \"Roboto\", sans-serif;\n  font-size: 14px;\n  color: #5a5a5a;\n}\n\nh1, .h1 {\n  font-size: 28px;\n  font-weight: 700;\n  margin-top: 1em;\n  margin-bottom: 0.2em;\n}\n\nh2, .h2 {\n  font-size: 16.8px;\n  font-weight: 700;\n  margin-top: 1em;\n  margin-bottom: 0.2em;\n}\n\nh3, .h3 {\n  font-size: 14px;\n  font-weight: 700;\n  margin-top: 1em;\n  margin-bottom: 0.2em;\n}\n\nh1:first-child, h1 + *, .h1:first-child, .h1 + * {\n  margin-top: 0;\n}\n\nh2:first-child, h2 + *, .h2:first-child, .h2 + * {\n  margin-top: 0;\n}\n\nh3:first-child, h3 + *, .h3:first-child, .h3 + * {\n  margin-top: 0;\n}\n\np, span, li {\n  font-size: 14px;\n  color: inherit;\n}\n\np {\n  line-height: 1.5em;\n  margin: 0;\n}\n\np + p {\n  margin-top: 1em;\n}\n\na {\n  transition: all 0.2s;\n  color: #e62739;\n  text-decoration: none;\n}\n\na:visited, a:active {\n  color: #e62739;\n}\n\na:hover, a:focus {\n  color: #eb5563;\n}\n\n.container {\n  padding: 0 3vmin;\n}\n\nul {\n  list-style: none;\n}\n"
     },
-    "./src/containers/App/App.scss": {
-      "_style": "p {\n  color: red;\n}\n"
+    "./src/components/shared/styles/button.scss": {
+      "btn": "btn",
+      "btn-cta": "btn-cta",
+      "_style": ".btn, a.btn {\n  color: #9068be;\n  font-size: 14px;\n  text-align: center;\n  font-weight: 700;\n  line-height: 1em;\n  border: 2px solid #9068be;\n  display: block;\n  width: 100%;\n  padding: 15px 10px;\n  cursor: pointer;\n  background-color: inherit;\n  transition: all .2s;\n}\n\n.btn:hover, a.btn:hover {\n  color: #e1e8f0;\n  background-color: #9068be;\n}\n\n.btn + .btn, a.btn + .btn {\n  margin-top: 15px;\n}\n\n.btn.btn-cta, a.btn.btn-cta {\n  color: #e62739;\n  border-color: #e62739;\n}\n\n.btn.btn-cta:hover, a.btn.btn-cta:hover {\n  color: #e1e8f0;\n  background-color: #e62739;\n}\n"
+    },
+    "./src/components/views/Login/login.scss": {
+      "login-view": "login-view",
+      "_style": ".login-view {\n  margin-top: 25px;\n}\n"
     }
   }
 }
