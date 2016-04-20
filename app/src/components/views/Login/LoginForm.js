@@ -1,9 +1,10 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
+import { login } from 'redux/modules/gui/login';
 import { TextInput } from 'components/shared/form';
 import Button from 'components/shared/Button';
 
-const { func } = React.PropTypes;
+const { object } = React.PropTypes;
 
 const fields = ['username', 'password'];
 const validate = values => {
@@ -18,11 +19,15 @@ const validate = values => {
 	return errors;
 };
 
+const selector = state => ({
+	gui: state.gui.login
+});
+
 function LoginForm(props) {
 	const { fields: { username, password }, handleSubmit } = props;
 
 	return (
-		<form onSubmit={handleSubmit}>
+		<form onSubmit={handleSubmit(login)}>
 			<TextInput placeholder='username' {...username} />
 			<TextInput placeholder='password' type='password' {...password} />
 			<Button cta type='submit'>Log in</Button>
@@ -31,11 +36,11 @@ function LoginForm(props) {
 }
 
 LoginForm.propTypes = {
-	handleSubmit: func.isRequired
+	gui: object
 };
 
 export default reduxForm({
 	form: 'loginForm',
 	fields,
 	validate
-})(LoginForm);
+}, selector)(LoginForm);

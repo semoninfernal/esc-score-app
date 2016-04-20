@@ -11,12 +11,12 @@ import createStore from './redux/createStore';
 
 import getRoutes from './routes';
 
+const history = useScroll(() => browserHistory)();
 const client = createClient();
 
 const mount = document.getElementById('content');
-const store = createStore(client, window.__INITIAL_STATE__);
+const store = createStore(client, history, window.__INITIAL_STATE__);
 
-const history = useScroll(() => browserHistory)();
 syncHistoryWithStore(history, store);
 
 const asyncRender = props => (

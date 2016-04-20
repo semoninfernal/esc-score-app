@@ -14,20 +14,19 @@ function formatUrl(path) {
 
 function setHeaders(request, state) {
 	request.set({
-		'Authorization': state.data.auth.token,
+		'Authorization': state.auth.token,
 		'Content-Type': 'application/json',
 		'Accept': 'application/json',
 
 	});
 }
 
-// TODO We need to handle the token from the Auth-header
 export default function create() {
 	return methods.reduce((client, method) => {
 		return {
 			...client,
-			[method]: curry((path, options, getState) => new Promise((resolve, reject) => {
-				const { params, payload } = options || {};
+			[method]: curry((options, getState) => new Promise((resolve, reject) => {
+				const { path, params, payload } = options || {};
 				const request = superagent[method](formatUrl(path));
 
 				setHeaders(request, getState());

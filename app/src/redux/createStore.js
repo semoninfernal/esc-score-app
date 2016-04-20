@@ -1,9 +1,11 @@
 import { compose, createStore as _createStore, applyMiddleware } from 'redux';
+import { routerMiddleware } from 'react-router-redux';
 import reducer from './modules/reducer';
 import clientMiddleware from './middleware/clientMiddleware';
 
-export default function createStore(client, initialState) {
-	const middleware = [clientMiddleware(client)];
+export default function createStore(client, history, initialState) {
+	// TODO we might not need the router middleware, it's only used by dispatched location actions from react-router-redux
+	const middleware = [clientMiddleware(client), routerMiddleware(history)];
 
 	let finalCreateStore;
 	if (__DEVELOPMENT__ && __CLIENT__ && __DEVTOOLS__) {
@@ -22,7 +24,7 @@ export default function createStore(client, initialState) {
 
 	if (__DEVELOPMENT__ && module.hot) {
 		module.hot.accept('./modules/reducer', () => {
-			store.replaceReducer(require('./modules/reducer'));
+			store.replaceReducer(require('./modules/reducer').default);
 		});
 	}
 

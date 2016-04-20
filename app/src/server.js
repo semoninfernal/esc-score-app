@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser';
 import config from './config';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
-import { match } from 'react-router';
+import { match, createMemoryHistory } from 'react-router';
 import { ReduxAsyncConnect, loadOnServer } from 'redux-async-connect';
 import { Provider } from 'react-redux';
 
@@ -44,13 +44,13 @@ app.use('*', (req, res) => {
 	}
 
 	const initialState = {
-		data: {
-			auth: getAuth(req)
+		auth: {
+			token: getAuth(req)
 		}
 	};
 
 	const client = createClient();
-	const store = createStore(client, initialState);
+	const store = createStore(client, createMemoryHistory(), initialState);
 
 	function hydrateOnClient() {
 		const content = '<!doctype html>\n' +

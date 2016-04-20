@@ -23,7 +23,7 @@ function getAuth(req) {
 	} else {
 		auth = getCookies()[authCookie];
 	}
-	return auth ? JSON.parse(auth) : {};
+	return auth;
 }
 
 function removeAuth() {
