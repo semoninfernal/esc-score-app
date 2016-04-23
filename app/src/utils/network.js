@@ -1,9 +1,9 @@
 function parseError(error) {
-	const body = error.response.body;
+	const { code, message, errors } = error.response.body;
 	return {
-		code: body.code,
-		message: body.message,
-		errors: body.errors
+		code,
+		message,
+		errors
 	};
 }
 

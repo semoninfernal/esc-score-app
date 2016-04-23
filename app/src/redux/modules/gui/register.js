@@ -6,7 +6,7 @@ const REGISTER_SUCCESS = 'register_REGISTER_SUCCESS';
 const REGISTER_FAIL = 'register_REGISTER_FAIL';
 
 const initialState = {
-	api: null
+	error: null
 };
 
 function reducer(state = initialState, action = {}) {
@@ -15,13 +15,13 @@ function reducer(state = initialState, action = {}) {
 			return {
 				...state,
 				username: action.result.username,
-				api: null
+				error: null
 			};
 		case REGISTER_FAIL:
 			return {
 				...state,
 				username: null,
-				api: parseError(action.error)
+				error: parseError(action.error)
 			};
 		case LOCATION_CHANGE:
 			return initialState;

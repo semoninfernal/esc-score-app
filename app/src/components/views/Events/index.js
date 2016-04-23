@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import { isLoaded } from 'utils/dependencies';
 
 function Events(props) {
@@ -11,9 +12,11 @@ function Events(props) {
 	return (
 		<div>
 			<ul>
-				{events.items.map(({id, name, owner}) => (
+				{events.items.map(({id, name}) => (
 					<li key={id}>
-						{name}{owner ? <span> DU ÄGER</span> : null}
+						<Link to={`/events/${id}`}>
+							{name}
+						</Link>
 					</li>
 				))}
 			</ul>

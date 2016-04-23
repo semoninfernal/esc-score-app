@@ -1,23 +1,24 @@
 import React from 'react';
 import LoginForm from './LoginForm';
+import Logout from './Logout';
 
 require('./login.scss');
 
-const { string } = React.PropTypes;
+const { func, string } = React.PropTypes;
 
 function Login(props) {
-	const { username } = props;
-	// TODO Add support for return url
+	const { username, returnUrl, logout, user } = props;
 
 	return (
 		<article className='login-view'>
-			<p>This is the login view</p>
-			<LoginForm initialValues={{username}} />
+			{ !user ? <LoginForm initialValues={{ username }} returnUrl={returnUrl} /> : <Logout logout={logout} /> }
 		</article>
 	);
 }
 
 Login.propTypes = {
+	logout: func.isRequired,
+	returnUrl: string,
 	username: string
 };
 

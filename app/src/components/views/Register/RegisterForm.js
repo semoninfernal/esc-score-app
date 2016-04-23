@@ -34,7 +34,7 @@ function RegisterForm(props) {
 	const { fields: { username, password, repeatPassword }, handleSubmit } = props;
 
 	return (
-		<form onSubmit={handleSubmit(submitHandler(register, '/login'))}>
+		<form onSubmit={handleSubmit(submitHandler(register))}>
 			<TextInput placeholder='username' {...username} />
 			<TextInput placeholder='password' type='password' {...password} />
 			<TextInput placeholder='repeat password' type='password' {...repeatPassword} />

@@ -1,13 +1,12 @@
 import { parseError } from 'utils/network';
 import {
-	create as createSession,
 	LOGIN_SUCCESS,
 	LOGIN_FAIL
 } from '../auth';
 
 
 const initialState = {
-	api: null
+	error: null
 };
 
 function reducer(state = initialState, action = {}) {
@@ -15,23 +14,18 @@ function reducer(state = initialState, action = {}) {
 		case LOGIN_SUCCESS:
 			return {
 				...state,
-				api: null,
+				error: null,
 			};
 		case LOGIN_FAIL:
 			return {
 				...state,
-				api: parseError(action.error)
+				error: parseError(action.error)
 			};
 		default:
 			return state;
 	}
 }
 
-function login(values, dispatch) {
-	return dispatch(createSession(values));
-}
-
 export {
-	reducer,
-	login
+	reducer
 };

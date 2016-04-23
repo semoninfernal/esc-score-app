@@ -1,10 +1,10 @@
-import { setAuth, removeAuth } from 'helpers/auth';
 const LOAD = 'auth_LOAD';
 const LOAD_SUCCESS = 'auth_LOAD_SUCCESS';
 const LOAD_FAIL = 'auth_LOAD_FAIL';
 const LOGIN = 'auth_LOGIN';
 const LOGIN_SUCCESS = 'auth_LOGIN_SUCCESS';
 const LOGIN_FAIL = 'auth_LOGIN_FAIL';
+const LOGOUT = 'auth_LOGOUT';
 
 const initialState = {
 	token: null,
@@ -30,6 +30,7 @@ function reducer(state = initialState, action = {}) {
 				user: action.result
 			};
 		case LOAD_FAIL:
+		case LOGOUT:
 			return initialState;
 		default:
 			return state;
@@ -46,21 +47,18 @@ function load() {
 }
 
 function create(credentials) {
-	return (dispatch, getState) => {
-		return dispatch({
-			types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAIL],
-			promise: client => client.post({
-				path: '/auth/local',
-				payload: credentials
-			})
+	return {
+		types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAIL],
+		promise: client => client.post({
+			path: '/auth/local',
+			payload: credentials
 		})
-		.then(action => {
-			if (action.type === LOGIN_SUCCESS) {
-				setAuth(getState().auth.token);
-			} else {
-				removeAuth();
-			}
-		});
+	};
+}
+
+function remove() {
+	return {
+		type: LOGOUT
 	};
 }
 
@@ -68,6 +66,8 @@ export {
 	reducer,
 	load,
 	create,
+	remove,
 	LOGIN_SUCCESS,
-	LOGIN_FAIL
+	LOGIN_FAIL,
+	LOGOUT
 };

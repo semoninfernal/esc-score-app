@@ -2,10 +2,11 @@ import { compose, createStore as _createStore, applyMiddleware } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import reducer from './modules/reducer';
 import clientMiddleware from './middleware/clientMiddleware';
+import authMiddleware from './middleware/authMiddleware';
 
 export default function createStore(client, history, initialState) {
 	// TODO we might not need the router middleware, it's only used by dispatched location actions from react-router-redux
-	const middleware = [clientMiddleware(client), routerMiddleware(history)];
+	const middleware = [clientMiddleware(client), authMiddleware, routerMiddleware(history)];
 
 	let finalCreateStore;
 	if (__DEVELOPMENT__ && __CLIENT__ && __DEVTOOLS__) {

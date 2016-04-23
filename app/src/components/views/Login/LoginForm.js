@@ -1,6 +1,8 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
-import { login } from 'redux/modules/gui/login';
+import { push as _push } from 'react-router-redux';
+import { submitHandler } from 'utils/form';
+import { create } from 'redux/modules/auth';
 import { TextInput } from 'components/shared/form';
 import Button from 'components/shared/Button';
 
@@ -24,10 +26,10 @@ const selector = state => ({
 });
 
 function LoginForm(props) {
-	const { fields: { username, password }, handleSubmit } = props;
-
+	const { fields: { username, password }, gui: { error }, returnUrl, handleSubmit, push } = props;
 	return (
-		<form onSubmit={handleSubmit(login)}>
+		<form onSubmit={handleSubmit(submitHandler(create, () => push(returnUrl || '/')))}>
+			{error ? (<p className='st-error'>{error.message}</p>) : null}
 			<TextInput placeholder='username' {...username} />
 			<TextInput placeholder='password' type='password' {...password} />
 			<Button cta type='submit'>Log in</Button>
@@ -43,4 +45,4 @@ export default reduxForm({
 	form: 'loginForm',
 	fields,
 	validate
-}, selector)(LoginForm);
+}, selector, { push: _push })(LoginForm);

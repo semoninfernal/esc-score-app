@@ -1,6 +1,6 @@
 import { parseError } from './network';
 
-function submitHandler(action) {
+function submitHandler(action, cb) {
 	return (values, dispatch) => {
 		return new Promise((resolve, reject) => {
 			dispatch(action(values))
@@ -14,6 +14,10 @@ function submitHandler(action) {
 					});
 				} else {
 					resolve(response);
+					console.log(cb);
+					if (typeof cb === 'function') {
+						cb();
+					}
 				}
 			});
 		});
