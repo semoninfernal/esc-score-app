@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
-import { requiresFetch } from 'utils/dependencies';
-import { load } from 'redux/modules/data/events';
+import { requiresFetch, isLoaded } from 'utils/dependencies';
+import { loadOne } from 'redux/modules/data/events';
+import { eventSelector, selector } from './eventSelector';
 import connect from 'helpers/connect';
 
-const selector = state => ({
-	events: state.data.events
-});
 
 const fetch = {
-	promise: ({ store: { dispatch, getState } }) => {
+	promise: options => {
+		const { store: { dispatch, getState }, params: { id } } = options;
 		const state = getState();
 		const promises = [];
 
-		// TODO Fetch one instead
-		if (requiresFetch(selector(state))) {
-			promises.push(dispatch(load()));
+		if (requiresFetch(eventSelector(state, options))) {
+			promises.push(dispatch(loadOne(id)));
 		}
 
 		return Promise.all(promises);
@@ -23,12 +21,13 @@ const fetch = {
 
 class EventContainer extends Component {
 	render() {
-		const { events, params } = this.props;
-		const event = events.items.find(e => e.id === parseInt(params.id, 0));
-
+		const { data: { event } } = this.props;
+		if (!isLoaded(event)) {
+			return <div>LADDAR</div>;
+		}
 		return (
 			<div>
-				{event ? event.name : 'Laddar'}
+				{event.name}
 			</div>
 		);
 	}

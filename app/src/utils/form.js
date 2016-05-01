@@ -14,7 +14,6 @@ function submitHandler(action, cb) {
 					});
 				} else {
 					resolve(response);
-					console.log(cb);
 					if (typeof cb === 'function') {
 						cb();
 					}

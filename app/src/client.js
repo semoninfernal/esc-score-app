@@ -25,7 +25,7 @@ const asyncRender = props => (
 
 const component = (
 	<Router history={history} render={asyncRender}>
-		{getRoutes(store, true)}
+		{getRoutes(store)}
 	</Router>
 );
 

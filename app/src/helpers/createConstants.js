@@ -1,4 +1,4 @@
-const methodNames = ['CREATE', 'READ', 'UPDATE', 'DELETE'];
+const methodNames = ['CREATE', 'READ', 'READ_ONE', 'UPDATE', 'DELETE'];
 const variantNames = ['', 'SUCCESS', 'FAIL'];
 
 // Take a namespace and return CRUD-constants

@@ -6,6 +6,7 @@ import { selector, eventsSelector } from './eventsSelector';
 import Events from 'components/views/Events';
 
 const fetch = {
+	deferred: true,
 	promise: ({ store: { dispatch, getState } }) => {
 		const state = getState();
 		const promises = [];

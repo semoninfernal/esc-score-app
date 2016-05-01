@@ -7,6 +7,7 @@ import {
 	Event,
 	Events,
 	Login,
+	NotFound,
 	Register
 } from 'containers';
 
@@ -16,8 +17,8 @@ export default (store) => {
 	const requireLogin = (nextState, replace, cb) => {
 		function checkAuth() {
 			const { auth: { user } } = store.getState();
-			console.log(nextState);
 			const { location: { pathname } } = nextState;
+
 			if (!user) {
 				replace(`/login${pathname ? '?returnUrl=' + pathname : ''}`);
 			}
@@ -41,6 +42,7 @@ export default (store) => {
 				<Route path='events' component={Events} />
 				<Route path='events/:id' component={Event} />
 			</Route>
+			<Route path='*' name='notFound' component={NotFound} status='404' />
 		</Route>
 	);
 };
