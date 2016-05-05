@@ -7,7 +7,7 @@ const dataSelector = createSelector(
 	events => ({
 		events: {
 			...events,
-			items: Object.keys(events.items).map(id => events.items[id])
+			items: Object.values(events.items)
 		}
 	})
 );

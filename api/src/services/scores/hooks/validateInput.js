@@ -27,7 +27,7 @@ export default function validateInput() {
           hook.app.service(names.scoreTypes)._get(id, hook.params)
             .then(scoreType => {
               const { value } = hook.data;
-              if (!value) {
+              if (!value && typeof value === 'undefined') {
                 throw new errors.BadRequest('You must provide a value');
               }
 

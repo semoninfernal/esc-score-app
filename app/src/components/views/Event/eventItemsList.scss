@@ -1,0 +1,42 @@
+@import "mixins/container";
+@import "variables";
+
+ul.event-items-list {
+	@include container();
+	li {
+		padding: 1em 0.25em;
+
+		& + li {
+			border-top: 1px solid $font-color-light;
+		}
+	}
+
+	.item {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		img {
+			width: 50px;
+			height: 50px;
+		}
+	}
+
+	.info {
+		width: 100%;
+		padding: 0 1em;
+		span {
+			display: block;
+			width: 100%;
+		}
+		.name {
+			font-size: 1.5em;
+			font-weight: $fw-bold;
+		}
+	}
+
+	.score {
+		font-size: 2em;
+		font-weight: $fw-bold;
+	}
+}

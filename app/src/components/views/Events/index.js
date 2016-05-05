@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { isLoaded } from 'utils/dependencies';
+import Loader from 'components/shared/Loader';
 
 function Events(props) {
 	const { events } = props;
 
 	if (!isLoaded(events)) {
-		return <div>Laddar</div>;
+		return <Loader />;
 	}
 
 	return (

@@ -12,15 +12,17 @@ export default class ItemService extends Service {
         event_items.description,
         event_items.sort_index,
         event_items.image,
+        event_items.event_id,
         sum(scores.value) AS score
       FROM event_items
       FULL OUTER JOIN (
         SELECT value, id, event_item_id FROM event_scores WHERE event_scores.event_member_id = ${params.member.id}
       ) scores
         ON scores.event_item_id = event_items.id
-      ${params.query.id ? 'WHERE event_items.id = ' + params.query.id : ''}
+	  WHERE event_items.event_id = ${params.eventId}
+      ${params.query.id ? ' AND event_items.id = ' + params.query.id : ''}
       GROUP BY event_items.id
-      ORDER BY event_items.id
+      ORDER BY event_items.sort_index
     `);
 
     return query
