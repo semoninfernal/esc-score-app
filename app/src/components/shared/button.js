@@ -8,14 +8,14 @@ require('./styles/button.scss');
 
 function Button(props) {
 	const { children, ...rest } = props;
-	const _className = classNames({
+	const className = classNames({
 		'btn': true,
 		'btn-cta': props.cta
 	}, props);
 
 	return props.type ?
-		<input {...rest} className={_className} value={children} /> :
-		<Link {...rest} className={_className}>{children}</Link>;
+		<input {...rest} className={className} value={children} /> :
+		<Link {...rest} className={className}>{children}</Link>;
 }
 
 Button.propTypes = {

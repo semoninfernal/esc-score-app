@@ -1,35 +1,34 @@
 import React from 'react';
 import { isLoaded } from 'utils/dependencies';
 import Loader from 'components/shared/Loader';
+import MembersList from './MembersList';
 
-const { object } = React.PropTypes;
+require('./members.scss');
+
+const { object, func, bool } = React.PropTypes;
 
 function Members(props) {
-	const { members } = props;
+	const { users, toggleExpanded, expanded, ...rest} = props;
 
-	if (!isLoaded(members)) {
+	if (!isLoaded(users)) {
 		return <Loader />;
 	}
 
-	// Display a button on Event that allows owner to edit members
-	// Edit members contains a list of all users (owner excluded)
-
-	// Each row has a checkbox, checked means the user is a member
-	// Add/Remove members with checkbox
-
 	return (
 		<div className='members'>
-			<ul>
-				{members.items.map(member => (
-					<li key={member.id}>{member.username}</li>
-				))}
-			</ul>
+			<a className='btn btn-cta' onClick={toggleExpanded}>
+				{!expanded ? 'Edit members' : 'Done'}
+			</a>
+			{expanded ? <MembersList items={users.items} {...rest} /> : null }
 		</div>
 	);
 }
 
 Members.propTypes = {
-	members: object.isRequired
+	expanded: bool.isRequired,
+	users: object.isRequired,
+	toggleExpanded: func.isRequired,
+	toggleMembership: func.isRequired
 };
 
 export default Members;

@@ -1,0 +1,67 @@
+@import "mixins/container";
+@import "variables";
+
+.members {
+	@include container();
+
+	.members-list {
+		margin-top: 1em;
+	}
+
+	.member {
+		align-items: center;
+		padding: .5em .25em;
+		input[type='checkbox'] {
+			display: none;
+
+			& + label .checkbox {
+				display: block;
+				width: 40px;
+				height: 25px;
+				border-radius: 25px;
+				transition: all .3s;
+
+				&:before {
+					display: block;
+					content: "";
+					background-color: $color-white;
+					width: 25px;
+					height: 25px;
+					box-shadow: inset 0 0 0 1px $color-3;
+					box-sizing: border-box;
+					border-radius: 50%;
+					transition: inherit;
+				}
+			}
+
+			&:not(:checked) + label .checkbox {
+				background-color: $color-4-tint;
+
+				&:before {
+					border: 2px solid $color-4-tint;
+				}
+			}
+
+			&:checked + label .checkbox {
+				background-color: $color-1-tint;
+
+				&:before {
+					border: 2px solid $color-1-tint;
+					transform: translateX((40 - 25) +0px);
+				}
+			}
+		}
+		label {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			width: 100%;
+			font-size: 18px;
+			line-height: 1;
+		}
+	}
+
+	.checkbox {
+
+	}
+}
