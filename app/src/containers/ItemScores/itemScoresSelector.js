@@ -31,12 +31,15 @@ function formatScores(scores, scoreTypes) {
 	} : { loaded: false };
 }
 
-const itemScoresSelector = (state, props) => ({
-	...state.data.itemScores,
-	items: Object.values(state.data.itemScores.items)
+const itemScoresSelector = ({ data: { itemScores }}, props) => ({
+	...itemScores,
+	loading: itemScores.loading[props.item],
+	loaded: itemScores.loaded[props.item],
+	items: Object.values(itemScores.items)
 		.filter(score => score.eventItemId === props.item)
 });
 
+// TODO handle score types in the same way as scores
 const scoreTypesSelector = (state, props) => ({
 	...state.data.scoreTypes,
 	items: Object.values(state.data.scoreTypes.items)

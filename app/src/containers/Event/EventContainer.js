@@ -36,11 +36,6 @@ const actions = {
 };
 
 class EventContainer extends Component {
-
-	onSetScore() {
-
-	}
-
 	onExpandItem({setActiveItem}) {
 		return id => setActiveItem(id);
 	}
@@ -53,8 +48,7 @@ class EventContainer extends Component {
 		}
 
 		const handlers = {
-			expandItem: this.onExpandItem(this.props),
-			setScore: this.setScore
+			expandItem: this.onExpandItem(this.props)
 		};
 
 		return (

@@ -13,11 +13,7 @@ import {
 } from './itemScoresSelector';
 import ItemScores from 'components/views/ItemScores';
 
-const { number, object, func } = React.PropTypes;
-
-// This component should have a debouncing setScoreThing
-
-// It needs to alter between create and update when value goes from null to anything
+const { number, object } = React.PropTypes;
 
 class ItemScoresContainer extends Component {
 	componentDidMount() {
@@ -39,7 +35,6 @@ class ItemScoresContainer extends Component {
 
 	handleScoreChange() {
 		return (id, scoreTypeId, value) => {
-			console.log(id, scoreTypeId, value);
 			if (typeof id === 'undefined') {
 				this.createScore({value, scoreTypeId});
 			} else {
@@ -49,11 +44,10 @@ class ItemScoresContainer extends Component {
 	}
 
 	render() {
-		const { data, close } = this.props;
+		const { data } = this.props;
 
 		const handlers = {
-			onScoreChange: this.handleScoreChange(),
-			close
+			onScoreChange: this.handleScoreChange()
 		};
 
 		return (
@@ -67,8 +61,7 @@ class ItemScoresContainer extends Component {
 
 ItemScoresContainer.propTypes = {
 	event: number.isRequired,
-	item: number.isRequired,
-	close: func.isRequired,
+	item: number.isRequired
 };
 
 ItemScoresContainer.contextTypes = {

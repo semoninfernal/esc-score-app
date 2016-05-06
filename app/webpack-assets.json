@@ -1,6 +1,6 @@
 {
   "javascript": {
-    "main": "http://localhost:3001/dist/main-54cb069b022fca325699.js"
+    "main": "http://localhost:3001/dist/main-b804407e9f3fdbc8f6e1.js"
   },
   "styles": {},
   "assets": {
@@ -21,7 +21,11 @@
     },
     "./src/components/views/ItemScores/itemScores.scss": {
       "item-scores": "item-scores",
-      "_style": ".item-scores {\n  margin-top: 0.5em;\n}\n"
+      "close": "close",
+      "item-score": "item-score",
+      "slider": "slider",
+      "range": "range",
+      "_style": ".item-scores {\n  margin-top: 0.5em;\n}\n\n.item-scores .close {\n  border: 1px solid #e62739;\n  border-radius: 50%;\n  width: 30px;\n  height: 30px;\n}\n\n.item-scores .item-score {\n  padding: .5em 0;\n}\n\n.item-scores .item-score label {\n  display: block;\n  width: 100%;\n  text-align: center;\n  font-size: 18px;\n  margin-bottom: .5em;\n}\n\n.item-scores .item-score .slider {\n  display: flex;\n  align-items: center;\n  width: 100%;\n  position: relative;\n}\n\n.item-scores .item-score .slider label {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  right: 0;\n  left: 0;\n}\n\n.item-scores .item-score input[type=\"range\"] {\n  -webkit-appearance: none !important;\n  width: 100%;\n  height: 25px;\n  background-color: #6ed3cf;\n  border: 1px solid #47c7c2;\n  border-radius: 10px;\n  margin: 0 .5em;\n  transition: all 0.3s ease;\n}\n\n.item-scores .item-score input[type=\"range\"]::-webkit-slider-thumb {\n  -webkit-appearance: none !important;\n  width: 35px;\n  height: 35px;\n  background-color: #95dfdc;\n  border: 1px solid #47c7c2;\n  border-radius: 50%;\n  transition: all 0.5s ease;\n}\n\n.item-scores .item-score .range {\n  font-size: 20px;\n  line-height: 1;\n}\n"
     },
     "./src/components/shared/styles/button.scss": {
       "btn": "btn",

@@ -8,7 +8,7 @@ require('./itemScores.scss');
 const { object, func } = React.PropTypes;
 
 function ItemScores(props) {
-	const { scores, close, onScoreChange } = props;
+	const { scores, onScoreChange } = props;
 
 	if (!isLoaded(scores)) {
 		return <Loader />;
@@ -16,7 +16,6 @@ function ItemScores(props) {
 
 	return (
 		<div className='item-scores'>
-			<div onClick={close}>CLOSE</div>
 			{scores.items.map(score => (
 				<ItemScoreForm key={score.scoreType} score={score} onChange={onScoreChange} />
 			))}
@@ -25,7 +24,6 @@ function ItemScores(props) {
 }
 
 ItemScores.propTypes = {
-	close: func.isRequired,
 	onScoreChange: func.isRequired,
 	scores: object.isRequired
 };

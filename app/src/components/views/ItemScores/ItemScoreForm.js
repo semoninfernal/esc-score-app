@@ -7,7 +7,7 @@ const ItemScoresForm = React.createClass({
 	getInitialState() {
 		const { value, max } = this.props.score;
 		return {
-			value: value || max / 2
+			value: typeof value === 'undefined' ? max / 2 : value
 		};
 	},
 
@@ -37,20 +37,29 @@ const ItemScoresForm = React.createClass({
 	render() {
 		const { score } = this.props;
 		const { value } = this.state;
+		const sliderName = `score-${score.scoreType}`;
 
 		return (
 			<div className='item-score'>
-				<div>{score.name}</div>
-				<input
-					name={`score-${score.scoreType}`}
-					type='range'
-					max={score.max}
-					min={score.min}
-					onChange={this.handleChange}
-					ref='score'
-					step='1'
-					value={value}
-				/>
+				<label htmlFor={sliderName} className='name'>{score.name}</label>
+				<div className='slider'>
+					<div className='range'>
+						{score.min}
+					</div>
+					<input
+						name={sliderName}
+						type='range'
+						max={score.max}
+						min={score.min}
+						onChange={this.handleChange}
+						ref='score'
+						step='1'
+						value={value}
+					/>
+					<div className='range'>
+						{score.max}
+					</div>
+				</div>
 			</div>
 		);
 	}

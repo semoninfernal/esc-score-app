@@ -7,8 +7,8 @@ function EventItem(props) {
 	const { toggleExpanded, expanded, name, image, description, score, eventId, id } = props;
 
 	return (
-		<li onClick={!expanded ? toggleExpanded : () => {}}>
-			<div className='item'>
+		<li >
+			<div className='item' onClick={toggleExpanded}>
 				<img src={image} />
 				<div className='info'>
 					<span className='name'>{name}</span>
@@ -19,7 +19,7 @@ function EventItem(props) {
 				</div>
 			</div>
 
-			{expanded ? <ItemScores close={toggleExpanded} event={eventId} item={id} /> : null}
+			{expanded ? <ItemScores event={eventId} item={id} /> : null}
 		</li>
 	);
 }

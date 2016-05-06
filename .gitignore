@@ -34,3 +34,6 @@ data/
 
 ## Directory-based project format:
 .idea/
+
+#webpack assets
+webpack-assets.json

@@ -13,7 +13,7 @@ export default class ItemService extends Service {
         event_items.sort_index,
         event_items.image,
         event_items.event_id,
-        sum(scores.value) AS score
+        cast(sum(scores.value) AS INT) AS score
       FROM event_items
       FULL OUTER JOIN (
         SELECT value, id, event_item_id FROM event_scores WHERE event_scores.event_member_id = ${params.member.id}
@@ -27,6 +27,7 @@ export default class ItemService extends Service {
 
     return query
       .then(result => {
+	  	console.log('RESULT', result.rows);
         return result.rows
       }).catch(errorHandler);
   }
