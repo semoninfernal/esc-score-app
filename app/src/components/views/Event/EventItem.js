@@ -4,12 +4,11 @@ import { ItemScores } from 'containers';
 const { bool, string, number, oneOfType, func } = React.PropTypes;
 
 function EventItem(props) {
-	const { toggleExpanded, expanded, name, image, description, score, eventId, id } = props;
+	const { toggleExpanded, expanded, name, description, score, eventId, id } = props;
 
 	return (
 		<li >
 			<div className='item' onClick={toggleExpanded}>
-				<img src={image} />
 				<div className='info'>
 					<span className='name'>{name}</span>
 					<span className='description'>{description}</span>

@@ -15,8 +15,7 @@ export const before = {
     auth.populateUser(),
     auth.restrictToAuthenticated(),
     populateEvents(),
-    validateMembership(),
-    validateOwnership()
+    validateMembership()
   ]
 };
 

@@ -5,9 +5,9 @@ const { number, shape, string, func } = React.PropTypes;
 
 const ItemScoresForm = React.createClass({
 	getInitialState() {
-		const { value, max } = this.props.score;
+		const { value } = this.props.score;
 		return {
-			value: typeof value === 'undefined' ? max / 2 : value
+			value: typeof value === 'undefined' ? 0 : value
 		};
 	},
 

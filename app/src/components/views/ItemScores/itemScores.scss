@@ -40,18 +40,20 @@
 			-webkit-appearance: none !important;
 			width: 100%;
 			height: 25px;
-			background-color: $color-1;
-			border: 1px solid $color-1-shade;
-			border-radius: 10px;
+			background-color: $color-1-tint;
+			border: none;
+			border-radius: 25px;
 			margin: 0 .5em;
 			transition: all 0.3s ease;
 		}
 		input[type="range"]::-webkit-slider-thumb {
 			-webkit-appearance: none !important;
-			width: 35px;
-			height: 35px;
-			background-color: $color-1-tint;
-			border: 1px solid $color-1-shade;
+			width: 25px;
+			height: 25px;
+			box-sizing: border-box;
+			background-color: $color-white;
+			border: 2px solid $color-1-tint;
+			box-shadow: inset 0 0 0 1px $color-3;
 			border-radius: 50%;
 			transition: all 0.5s ease;
 		}
