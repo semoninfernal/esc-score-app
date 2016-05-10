@@ -4,14 +4,13 @@ import { load } from 'redux/modules/auth';
 import { Route, IndexRedirect } from 'react-router';
 import {
 	App,
+	Dashboard,
 	Event,
 	Events,
 	Login,
 	NotFound,
 	Register
 } from 'containers';
-
-// Create a HoC-authorized route
 
 export default (store) => {
 	const requireLogin = (nextState, replace, cb) => {
@@ -41,6 +40,7 @@ export default (store) => {
 			<Route onEnter={requireLogin}>
 				<Route path='events' component={Events} />
 				<Route path='events/:id' component={Event} />
+				<Route path='events/:id/dashboard' component={Dashboard} />
 			</Route>
 			<Route path='*' name='notFound' component={NotFound} status='404' />
 		</Route>

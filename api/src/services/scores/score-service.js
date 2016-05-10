@@ -5,13 +5,21 @@ import errorHandler from '../errors';
 
 export default class ScoreTypeService extends Service {
   _find(params) {
-    let query = this.db().select('*');
+    let query = this.db().select(
+		'event_scores.id',
+		'event_scores.event_member_id',
+		'event_scores.score_type_id',
+		'event_scores.event_item_id',
+		'event_scores.value',
+		'event_items.event_id'
+	);
 
     if (params.query.id) {
       query = query.where({id: params.query.id})
     }
 
     return query
+	  .leftJoin('event_items', 'event_scores.event_item_id', 'event_items.id')
       .where({
         event_member_id: params.member.id,
         event_item_id: params.item.id})

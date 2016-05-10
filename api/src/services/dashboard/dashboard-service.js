@@ -10,11 +10,12 @@ function formatDashboard(result) {
     name: result[0].name,
     items: Object.keys(groupedItems).map(itemId => {
       const items = groupedItems[itemId];
+		console.log(items);
       return {
         id: items[0].item_id,
         name: items[0].item_name,
-        image: items[0].item_image,
-        scores: items.map(score => ({
+        desciption: items[0].item_description,
+        scores: items.filter(item => item.score_id !== null).map(score => ({
           id: score.score_id,
           score_type: score.score_type_id,
           member: score.event_member_id,
@@ -33,7 +34,7 @@ export default class EventService extends Service {
         'events.name',
         'event_items.id as item_id',
         'event_items.name as item_name',
-        'event_items.image as item_image',
+        'event_items.description as item_description',
         'event_scores.id as score_id',
         'event_scores.event_member_id',
         'event_scores.value as score',
