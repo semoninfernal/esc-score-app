@@ -4,10 +4,12 @@ import { isLoaded } from 'utils/dependencies';
 
 function formatMemberScores(groupedScores, members) {
 	return Object.keys(groupedScores).reduce((acc, memberId) => {
+		const id = parseInt(memberId, 0);
 		return [
 			...acc,
 			{
-				member: members.find(member => member.id === parseInt(memberId, 0)).username,
+				id,
+				member: members.find(member => member.id === id).username,
 				score: groupedScores[memberId].reduce((sum, score) => sum + score.value, 0)
 			}
 		];

@@ -15,7 +15,7 @@ export default class ScoreTypeService extends Service {
 	);
 
     if (params.query.id) {
-      query = query.where({id: params.query.id})
+      query = query.where({['event_scores.id']: params.query.id})
     }
 
     return query
@@ -67,7 +67,8 @@ export default class ScoreTypeService extends Service {
       .update(data, 'id')
       .then(rows => {
         return this._get(rows[0], params);
-      });
+      })
+	  .catch(errorHandler);
   }
 
   update() {

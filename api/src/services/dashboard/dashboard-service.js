@@ -14,7 +14,7 @@ function formatDashboard(result) {
       return {
         id: items[0].item_id,
         name: items[0].item_name,
-        desciption: items[0].item_description,
+	  	description: items[0].item_description,
         scores: items.filter(item => item.score_id !== null).map(score => ({
           id: score.score_id,
           score_type: score.score_type_id,

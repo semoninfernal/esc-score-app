@@ -1,0 +1,7 @@
+@import "mixins/container";
+
+.dashboard {
+	@include container();
+	max-width: 800px;
+	margin: 0 auto;
+}

@@ -1,0 +1,62 @@
+@import "variables";
+
+.dashboard-item {
+	box-sizing: border-box;
+	border: 2px solid $color-1-shade;
+	border-radius: 10px;
+	box-shadow: 1px;
+	padding: 15px;
+
+	& + .dashboard-item {
+		margin-top: .5em;
+	}
+
+	.summary {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.item-info {
+		span {
+			display: block;
+			line-height: 1;
+		}
+
+		.name {
+			font-weight: $fw-bold;
+			font-size: 22px;
+			// color: $color-1-shade;
+		}
+
+		.description {
+			font-size: 18px;
+		}
+	}
+
+	.total-score {
+		font-size: 36px;
+		font-weight: $fw-bold;
+	}
+
+	.member-scores {
+		display: flex;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+
+		li {
+			display: flex;
+			align-items: baseline;
+			background-color: $color-1-tint;
+			border-radius: 10px;
+			padding: 5px 10px;
+			margin-right: .5em;
+			margin-top: .5em;
+
+			span + span {
+				margin-left: .5em;
+				font-weight: $fw-bold;
+			}
+		}
+	}
+}

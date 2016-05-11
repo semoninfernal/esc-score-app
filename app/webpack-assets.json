@@ -1,6 +1,6 @@
 {
   "javascript": {
-    "main": "http://localhost:3001/dist/main-b9a4fc776b2e7c7c9c18.js"
+    "main": "http://localhost:3001/dist/main-8fca322e1b498efed1b8.js"
   },
   "styles": {},
   "assets": {
@@ -42,6 +42,20 @@
       "member": "member",
       "checkbox": "checkbox",
       "_style": ".members {\n  padding: 0 3vmin;\n}\n\n.members .members-list {\n  margin-top: 1em;\n}\n\n.members .member {\n  align-items: center;\n  padding: .5em .25em;\n}\n\n.members .member input[type='checkbox'] {\n  display: none;\n}\n\n.members .member input[type='checkbox'] + label .checkbox {\n  display: block;\n  width: 40px;\n  height: 25px;\n  border-radius: 25px;\n  transition: all .3s;\n}\n\n.members .member input[type='checkbox'] + label .checkbox:before {\n  display: block;\n  content: \"\";\n  background-color: #fff;\n  width: 25px;\n  height: 25px;\n  box-shadow: inset 0 0 0 1px #e1e8f0;\n  box-sizing: border-box;\n  border-radius: 50%;\n  transition: inherit;\n}\n\n.members .member input[type='checkbox']:not(:checked) + label .checkbox {\n  background-color: #eb5563;\n}\n\n.members .member input[type='checkbox']:not(:checked) + label .checkbox:before {\n  border: 2px solid #eb5563;\n}\n\n.members .member input[type='checkbox']:checked + label .checkbox {\n  background-color: #95dfdc;\n}\n\n.members .member input[type='checkbox']:checked + label .checkbox:before {\n  border: 2px solid #95dfdc;\n  transform: translateX(15px);\n}\n\n.members .member label {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  width: 100%;\n  font-size: 18px;\n  line-height: 1;\n}\n"
+    },
+    "./src/components/views/Dashboard/dashboardItem.scss": {
+      "dashboard-item": "dashboard-item",
+      "summary": "summary",
+      "item-info": "item-info",
+      "name": "name",
+      "description": "description",
+      "total-score": "total-score",
+      "member-scores": "member-scores",
+      "_style": ".dashboard-item {\n  box-sizing: border-box;\n  border: 2px solid #47c7c2;\n  border-radius: 10px;\n  box-shadow: 1px;\n  padding: 15px;\n}\n\n.dashboard-item + .dashboard-item {\n  margin-top: .5em;\n}\n\n.dashboard-item .summary {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n\n.dashboard-item .item-info span {\n  display: block;\n  line-height: 1;\n}\n\n.dashboard-item .item-info .name {\n  font-weight: 700;\n  font-size: 22px;\n}\n\n.dashboard-item .item-info .description {\n  font-size: 18px;\n}\n\n.dashboard-item .total-score {\n  font-size: 36px;\n  font-weight: 700;\n}\n\n.dashboard-item .member-scores {\n  display: flex;\n  justify-content: flex-start;\n  flex-wrap: wrap;\n}\n\n.dashboard-item .member-scores li {\n  display: flex;\n  align-items: baseline;\n  background-color: #95dfdc;\n  border-radius: 10px;\n  padding: 5px 10px;\n  margin-right: .5em;\n  margin-top: .5em;\n}\n\n.dashboard-item .member-scores li span + span {\n  margin-left: .5em;\n  font-weight: 700;\n}\n"
+    },
+    "./src/components/views/Dashboard/dashboard.scss": {
+      "dashboard": "dashboard",
+      "_style": ".dashboard {\n  padding: 0 3vmin;\n  max-width: 800px;\n  margin: 0 auto;\n}\n"
     }
   }
 }

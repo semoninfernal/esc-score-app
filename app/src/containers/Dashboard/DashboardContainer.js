@@ -10,6 +10,7 @@ import {
 	selector,
 	dashboardSelector,
 	membersSelector } from './dashboardSelecor';
+import Dashboard from 'components/views/Dashboard';
 
 const fetch = {
 	deferred: true,
@@ -45,15 +46,16 @@ class DashboardContainer extends Component {
 	}
 
 	render() {
-		const { data: { dashboard } } = this.props;
-		if (!isLoaded(dashboard)) {
+		const { data } = this.props;
+
+		if (!isLoaded(data.dashboard)) {
 			return <div>LADDAR</div>;
 		}
 
 		return (
-			<div>
-				<p onClick={this.onUpdateScore.bind(this)}>KLICK ME</p>
-			</div>
+			<Dashboard
+				{...data}
+			/>
 		);
 	}
 }
