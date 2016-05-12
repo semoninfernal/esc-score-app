@@ -1,0 +1,11 @@
+@import "mixins/page-container";
+@import "mixins/container";
+
+.register {
+	@include page-container();
+	@include container();
+
+	.complete {
+
+	}
+}

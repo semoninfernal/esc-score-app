@@ -1,5 +1,12 @@
 @import 'mixins/page-container';
+@import 'mixins/container';
 
 .login-view {
 	@include page-container();
+	@include container();
+
+	.register-link {
+		text-align: right;
+		margin-top: .5em;
+	}
 }

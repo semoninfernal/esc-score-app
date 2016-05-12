@@ -1,0 +1,35 @@
+@import "mixins/container";
+@import "variables";
+
+.app-container {
+	& > header {
+		padding: 10px 4vmin;
+		background-color: $color-1-tint;
+		// border-bottom: 1px solid $color-1;
+		color: $color-3-tint;
+		letter-spacing: .5px;
+	}
+
+	.header-content {
+		max-width: 800px;
+		margin: 0 auto;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		.title {
+			font-size: 28px;
+			font-weight: $fw-bold;
+
+		}
+
+		.username, .logout {
+			text-align: right;
+			line-height: 1.2em;
+		}
+
+		.logout {
+			color: $color-2;
+		}
+	}
+}

@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 import { classNames } from 'utils/classNames';
 
+require('./textInput.scss');
+
 function TextInput(props) {
 	const { error, touched, type, ...rest } = props;
 	const className = classNames({

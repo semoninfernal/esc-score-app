@@ -1,0 +1,14 @@
+@import "variables";
+
+.form-control {
+	textarea, input { outline: none; }
+
+	&.error p {
+		color: $color-4;
+	}
+
+	& + .form-control {
+		margin-top: 1em;
+	}
+}
+

@@ -14,7 +14,9 @@ function Button(props) {
 	}, props);
 
 	return props.type ?
-		<input {...rest} className={className} value={children} /> :
+		<div className='form-control'>
+			<input {...rest} className={className} value={children} />
+		</div> :
 		<Link {...rest} className={className}>{children}</Link>;
 }
 

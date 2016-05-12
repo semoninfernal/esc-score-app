@@ -2,15 +2,17 @@ import React from 'react';
 import RegisterComplete from './RegisterComplete';
 import RegisterForm from './RegisterForm';
 
+require('./register.scss');
+
 const { string } = React.PropTypes;
 
 function Register(props) {
 	const { username } = props;
 
 	return (
-		<div>
+		<article className='register'>
 			{ username ? <RegisterComplete username={username} /> : <RegisterForm />}
-		</div>
+		</article>
 	);
 }
 

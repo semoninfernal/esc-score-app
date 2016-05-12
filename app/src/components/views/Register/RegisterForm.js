@@ -11,16 +11,16 @@ const fields = ['username', 'password', 'repeatPassword'];
 const validate = values => {
 	const errors = {};
 	if (!values.username) {
-		errors.username = 'You have to enter a username';
+		errors.username = 'Du måste ange ett användarnamn';
 	}
 	if (!values.password) {
-		errors.password = 'You have to enter a password';
+		errors.password = 'Du måste ange ett lösenord';
 	}
 	if (!values.repeatPassword) {
-		errors.repeatPassword = 'You have to repeat your password';
+		errors.repeatPassword = 'Du måste repetera ditt lösenord';
 	}
 	if (values.password !== values.repeatPassword) {
-		errors.repeatPassword = 'Password does not match';
+		errors.repeatPassword = 'Lösenorden matchar inte';
 	}
 
 	return errors;
@@ -35,10 +35,10 @@ function RegisterForm(props) {
 
 	return (
 		<form onSubmit={handleSubmit(submitHandler(register))}>
-			<TextInput placeholder='username' {...username} />
-			<TextInput placeholder='password' type='password' {...password} />
-			<TextInput placeholder='repeat password' type='password' {...repeatPassword} />
-			<Button cta type='submit'>Register</Button>
+			<TextInput placeholder='användarnamn' {...username} />
+			<TextInput placeholder='lösenord' type='password' {...password} />
+			<TextInput placeholder='uppreda lösenord' type='password' {...repeatPassword} />
+			<Button cta type='submit'>Registrera</Button>
 		</form>
 	);
 }

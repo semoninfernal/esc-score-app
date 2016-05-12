@@ -1,0 +1,20 @@
+@import "variables";
+@import "./formControl";
+
+input[type="text"], input[type="password"] {
+	display: block;
+	box-sizing: border-box;
+	width: 100%;
+	border: 1px solid $font-color-light;
+	padding: 10px 5px;
+	text-align: center;
+	font-size: 18px;
+
+	&:active, &:focus {
+		border-color: $font-color;
+	}
+
+	.error & {
+		border-color: $color-4-tint;
+	}
+}

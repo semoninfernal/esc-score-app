@@ -13,8 +13,9 @@ function RegisterComplete(props) {
 	};
 
 	return (
-		<div>
-			<p>Registration complete, <Link to={login}>log in</Link>.</p>
+		<div className='complete'>
+			<h1>Välkommen {username}!</h1>
+			<p>Klicka <Link to={login}>här</Link> för att logga in</p>
 		</div>
 	);
 }
