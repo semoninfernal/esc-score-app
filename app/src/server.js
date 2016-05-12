@@ -21,8 +21,10 @@ import getRoutes from 'routes';
 
 const app = new Express();
 const server = new http.Server(app);
+const targetUrl = `http://localhost:${config.api.port}`
 const proxy = httpProxy.createProxyServer({
-	target: `http://localhost:${config.api.port}`
+	target: targetUrl,
+	ws: true
 });
 
 app.use(cookieParser());
@@ -35,8 +37,21 @@ app.use(config.api.baseUrl, (req, res) => {
 	proxy.web(req, res);
 });
 
+proxy.on('error', (error, req, res) => {
+	let json;
+	if (error.code !== 'ECONNRESET') {
+		console.error('proxy error', error);
+	}
+	if (!res.headersSent) {
+		res.writeHead(500, {'content-type': 'application/json'});
+	}
+
+	json = {error: 'proxy_error', reason: error.message};
+	res.end(JSON.stringify(json));
+});
+
 // Register App routes
-app.use('*', (req, res) => {
+app.use((req, res) => {
 	if (__DEVELOPMENT__) {
 		// Do not cache webpack stats: the script file would change since
 		// hot module replacement is enabled in the development env

@@ -1,9 +1,6 @@
-@import "mixins/container";
 @import "variables";
 
 .members {
-	@include container();
-
 	.members-list {
 		margin-top: 1em;
 	}
@@ -43,10 +40,10 @@
 			}
 
 			&:checked + label .checkbox {
-				background-color: $color-1-tint;
+				background-color: $color-2-tint;
 
 				&:before {
-					border: 2px solid $color-1-tint;
+					border: 2px solid $color-2-tint;
 					transform: translateX((40 - 25) +0px);
 				}
 			}

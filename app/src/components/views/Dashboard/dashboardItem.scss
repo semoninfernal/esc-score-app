@@ -4,8 +4,9 @@
 	box-sizing: border-box;
 	border: 2px solid $color-1-shade;
 	border-radius: 10px;
-	box-shadow: 1px;
 	padding: 15px;
+	background-color: $color-white;
+
 
 	& + .dashboard-item {
 		margin-top: .5em;

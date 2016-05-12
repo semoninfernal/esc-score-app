@@ -10,7 +10,9 @@ function formatMemberScores(groupedScores, members) {
 			{
 				id,
 				member: members.find(member => member.id === id).username,
-				score: groupedScores[memberId].reduce((sum, score) => sum + score.value, 0)
+				memberId: members.find(member => member.id === id), // TEMP
+				score: groupedScores[memberId].reduce((sum, score) => sum + score.value, 0),
+				scoreIds: groupedScores[memberId].map(score => score.id) // TEMP
 			}
 		];
 	}, []);
@@ -53,11 +55,15 @@ const membersSelector = ({ data: { members } }, { params: { id} }) => ({
 		.filter(member => member.eventId === parseInt(id, 0))
 });
 
+const userSelector = state => state.auth.user;
+
 const dataSelector = createSelector(
 	dashboardSelector,
 	membersSelector,
-	(dashboard, members) => ({
-		dashboard: formatDashboard(dashboard, members)
+	userSelector,
+	(dashboard, members, user) => ({
+		dashboard: formatDashboard(dashboard, members),
+		user
 	})
 );
 

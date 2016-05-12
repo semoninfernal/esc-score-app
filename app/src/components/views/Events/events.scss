@@ -1,0 +1,12 @@
+@import "mixins/page-container";
+@import "mixins/container";
+@import "variables";
+
+.events {
+	@include page-container();
+	@include container();
+
+	li + li {
+		margin-top: 1em;
+	}
+}

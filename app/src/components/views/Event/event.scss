@@ -1,16 +1,11 @@
 @import "mixins/container";
 @import "mixins/page-container";
 
-.dashboard {
+.event {
 	@include page-container();
 	@include container();
 
-	.container {
-		margin: 0 auto;
-		max-width: 800px;
-	}
-
-	.dashboard-list {
+	.btn {
 		margin-top: 1em;
 	}
 }

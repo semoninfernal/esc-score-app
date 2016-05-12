@@ -1,0 +1,25 @@
+@import "variables";
+
+.back-link {
+	font-size: 16px;
+	line-height: 1;
+	position: relative;
+	padding-left: 15px;
+
+	&:before {
+		content: "";
+		display: block;
+		position: absolute;
+		width: 0;
+		height: 0;
+		border-top: 7px solid transparent;
+		border-bottom: 7px solid transparent;
+		border-right: 7px solid $color-2;
+	}
+
+	&:hover {
+		&:before {
+			border-right-color: $color-2-tint;
+		}
+	}
+}

@@ -1,13 +1,15 @@
-@import "mixins/container";
 @import "variables";
 
 ul.event-items-list {
-	@include container();
 	li {
-		padding: 1em 0.25em;
+		box-sizing: border-box;
+		border: 2px solid $color-1-shade;
+		border-radius: 10px;
+		padding: 15px;
+		background-color: $color-white;
 
 		& + li {
-			border-top: 1px solid $font-color-light;
+			margin-top: .5em;
 		}
 	}
 

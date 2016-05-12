@@ -10,7 +10,7 @@ class AppContainer extends Component {
 
 		return (
 			<div>
-				<p>This is the app</p>
+				<div className='header'></div>
 				{children}
 			</div>
 		);
