@@ -1,11 +1,15 @@
 {
-  "host": "esc-score-api-app.feathersjs.com",
+  "host": "localhost",
   "port": 80,
-  "postgres": "DATABASE_URL",
+  "postgres": {
+		"database": "jalla-euro",
+		"user":     "jalla-euro",
+		"password": "jallajalla"
+	},
   "public": "../public/",
   "auth": {
     "token": {
-      "secret": "FEATHERS_AUTH_SECRET"
+      "secret": "GJcmYJjwqHLG3332OtsApTI6dlFfiJexwZr2IuvH/V2sSNb4Gvz3yFQIkxDt+sqSYSarz2lr26pKsCh05x7EHA=="
     },
     "local": {}
   }

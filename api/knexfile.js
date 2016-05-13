@@ -1,5 +1,6 @@
 // Update with your config settings.
 var devConfig = require('./config/default');
+var prodConfig = require('./config/production');
 
 module.exports = {
   development: {
