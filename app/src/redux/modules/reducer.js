@@ -5,8 +5,8 @@ import {reducer as reduxAsyncConnect} from 'redux-async-connect';
 import { LOGOUT } from './auth';
 
 import { reducer as auth } from './auth';
-import data from './data/index';
-import gui from './gui/index';
+import data from './data';
+import gui from './gui';
 
 const rootReducer = combineReducers({
 	auth,

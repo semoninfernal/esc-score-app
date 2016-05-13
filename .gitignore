@@ -36,7 +36,7 @@ data/
 .idea/
 
 #webpack assets
-webpack-assets.json
+app/webpack-assets.json
 
 #dist
 app/static/dist/
