@@ -10,8 +10,9 @@
   "author": "Simon Farås <simon.faras@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint -c .eslintrc src api",
-    "build": "webpack --verbose --colors --display-error-details --config webpack/prod.config.js",
+		"start-prod": "node ./node_modules/better-npm-run start-prod",
+		"build": "node ./node_modules/better-npm-run build",
+		"lint": "eslint -c .eslintrc src api",
     "build-dev": "node ./node_modules/better-npm-run build-dev",
     "dev": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev\"",
     "dev-tdd": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev\" \"npm run test-tdd\"",
@@ -21,6 +22,21 @@
     "test-tdd": "node ./node_modules/better-npm-run test-tdd"
   },
   "betterScripts": {
+		"start-prod": {
+			"command": "node ./bin/server",
+			"env": {
+				"NODE_PATH": "./src",
+				"NODE_ENV": "production",
+				"PORT": 80,
+				"API_PORT": 88
+			}
+		},
+		"build": {
+			"command": "webpack --verbose --colors --display-error-details --config webpack/prod.config.js",
+			"env": {
+				"NODE_ENV": "production"
+			}
+		},
     "build-dev": {
       "command": "webpack --verbose --colors --display-error-details --config webpack/dev.config.js",
       "env": {

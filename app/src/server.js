@@ -112,7 +112,6 @@ if (config.port) {
 		if (err) {
 			console.error(err);
 		}
-
 		// console.info('----\n==> ✅  %s is running, talking to API server on %s.', config.App.title, config.apiPort);
 		console.info('==> 💻  Open http://localhost:%s in a browser to view the App.', config.port);
 	});
