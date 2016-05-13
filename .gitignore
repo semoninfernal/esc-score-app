@@ -26,10 +26,6 @@ node_modules
 
 # Users Environment Variables
 .lock-wscript
-
-lib/
-data/
-
 *.iml
 
 ## Directory-based project format:
