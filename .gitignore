@@ -37,3 +37,6 @@ data/
 
 #webpack assets
 webpack-assets.json
+
+#dist
+app/static/dist/
