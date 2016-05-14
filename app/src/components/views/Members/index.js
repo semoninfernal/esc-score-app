@@ -17,7 +17,7 @@ function Members(props) {
 	return (
 		<div className='members'>
 			<a className='btn' onClick={toggleExpanded}>
-				{!expanded ? 'Edit members' : 'Done'}
+				{!expanded ? 'Redigera medlemmar' : 'Stäng'}
 			</a>
 			{expanded ? <MembersList items={users.items} {...rest} /> : null }
 		</div>

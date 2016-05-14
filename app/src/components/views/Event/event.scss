@@ -3,7 +3,10 @@
 
 .event {
 	@include page-container();
-	@include container();
+
+	.container {
+		@include container();
+	}
 
 	.btn {
 		margin-top: 1em;

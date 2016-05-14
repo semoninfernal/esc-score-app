@@ -1,0 +1,13 @@
+@import "variables";
+
+.no-content {
+	padding: 15px 10px;
+	text-align: center;
+	h2 {
+		color: $color-2-tint;
+	}
+
+	&.xl h2 {
+		font-size: 22px;
+	}
+}

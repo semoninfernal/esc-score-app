@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import { isLoaded } from 'utils/dependencies';
 import Loader from 'components/shared/Loader';
+import NoContent from 'components/shared/NoContent';
 
 require('./events.scss');
 
@@ -10,6 +11,14 @@ function Events(props) {
 
 	if (!isLoaded(events)) {
 		return <Loader />;
+	}
+
+	if (!events.items.length) {
+		return (
+			<NoContent heading='Här var det tomt!' xl>
+				<p>Vänta på att något bjuder in dig eller kontakta admin för att skapa ett event.</p>
+			</NoContent>
+		);
 	}
 
 	return (

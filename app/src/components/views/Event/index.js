@@ -13,11 +13,13 @@ function Event(props) {
 
 	return (
 		<article className='event'>
-			<BackLink text='Events' to='/events' />
-			<h1>{event.name}</h1>
-			<EventItemsList expandItem={expandItem} items={items} />
-			{ event.owner ? <Members event={event.id} /> : null }
-			<Link className='btn dashboard-link' to={`/events/${event.id}/dashboard`}>Dashboard</Link>
+			<div className='container'>
+				<BackLink text='Välj event' to='/events' />
+				<h1>{event.name}</h1>
+				<EventItemsList expandItem={expandItem} items={items} />
+				{ event.owner ? <Members event={event.id} /> : null }
+				<Link className='btn dashboard-link' to={`/events/${event.id}/dashboard`}>Dashboard</Link>
+			</div>
 		</article>
 	);
 }

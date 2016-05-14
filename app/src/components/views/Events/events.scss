@@ -4,7 +4,9 @@
 
 .events {
 	@include page-container();
-	@include container();
+	ul {
+		@include container();
+	}
 
 	li + li {
 		margin-top: 1em;
