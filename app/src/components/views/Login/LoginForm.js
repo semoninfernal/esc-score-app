@@ -6,8 +6,7 @@ import { submitHandler } from 'utils/form';
 import { create } from 'redux/modules/auth';
 import { TextInput } from 'components/shared/form';
 import Button from 'components/shared/Button';
-
-const { object } = React.PropTypes;
+import MessageBox from 'components/shared/MessageBox';
 
 const fields = ['username', 'password'];
 const validate = values => {
@@ -22,16 +21,12 @@ const validate = values => {
 	return errors;
 };
 
-const selector = state => ({
-	gui: state.gui.login
-});
-
 function LoginForm(props) {
-	const { fields: { username, password }, gui: { error }, returnUrl, handleSubmit, push } = props;
+	const { fields: { username, password }, error, returnUrl, handleSubmit, push } = props;
 	return (
 		<div>
 			<form onSubmit={handleSubmit(submitHandler(create, () => push(returnUrl || '/')))}>
-				{error ? (<p className='st-error'>{error.message}</p>) : null}
+				{error ? (<MessageBox error message={error} />) : null}
 				<TextInput placeholder='användarnamn' {...username} />
 				<TextInput placeholder='lösenord' type='password' {...password} />
 				<Button cta type='submit'>Logga in</Button>
@@ -41,12 +36,8 @@ function LoginForm(props) {
 	);
 }
 
-LoginForm.propTypes = {
-	gui: object
-};
-
 export default reduxForm({
 	form: 'loginForm',
 	fields,
 	validate
-}, selector, { push: _push })(LoginForm);
+}, null, { push: _push })(LoginForm);
