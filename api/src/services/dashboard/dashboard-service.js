@@ -10,7 +10,6 @@ function formatDashboard(result) {
     name: result[0].name,
     items: Object.keys(groupedItems).map(itemId => {
       const items = groupedItems[itemId];
-		console.log(items);
       return {
         id: items[0].item_id,
         name: items[0].item_name,

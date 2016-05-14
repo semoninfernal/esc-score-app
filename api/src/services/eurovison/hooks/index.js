@@ -4,7 +4,6 @@ const auth = authentication.hooks;
 
 function test() {
 	return hook => {
-		console.log('AFTER');
 		return hook;
 	}
 }

@@ -184,7 +184,6 @@ export default class EurovisonService extends Service {
 				]);
 			})
 			.then(res => {
-				console.log('RESULT', res)
 				return res;
 			})
 			.catch(errorHandler);

@@ -27,7 +27,6 @@ export default class ItemService extends Service {
 
     return query
       .then(result => {
-	  	console.log('RESULT', result.rows);
         return result.rows
       }).catch(errorHandler);
   }

@@ -16,7 +16,7 @@ export default function() {
     client: 'pg',
     connection: app.get('postgres'),
     searchPath: 'knex,public',
-    debug: __DEVELOPMENT__
+    debug: false
   });
 
   app.set('knex', db);
