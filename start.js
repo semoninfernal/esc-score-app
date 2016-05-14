@@ -37,6 +37,7 @@ function bindOutput(command) {
 
 function commandCallback(error, stdout, stderr) {
 	if (error) {
+		console.error('FATAL ERROR', error);
 		process.exit(error.code || 1);
 	}
 }
