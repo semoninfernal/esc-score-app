@@ -33,7 +33,7 @@ class DashboardContainer extends Component {
 		super(props);
 
 		this.state = {
-			update: false
+			update: true
 		};
 	}
 
