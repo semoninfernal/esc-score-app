@@ -12,7 +12,7 @@ exports.up = function(knex, Promise) {
     }).createTable('event_score_types', function(table) {
       table.increments('id').primary();
       table.integer('event_id').references('events.id').onDelete('CASCADE');
-      table.string('name').unique();
+      table.string('name');
       table.integer('min');
       table.integer('max');
   }).then(() => {

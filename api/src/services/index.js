@@ -1,5 +1,6 @@
 import knex from 'knex';
 import user from './user';
+import eurovision from './eurovison';
 import event from './event';
 import scores from './scores';
 import scoreType from './scoreType';
@@ -15,7 +16,7 @@ export default function() {
     client: 'pg',
     connection: app.get('postgres'),
     searchPath: 'knex,public',
-    debug: true
+    debug: __DEVELOPMENT__
   });
 
   app.set('knex', db);
@@ -28,4 +29,6 @@ export default function() {
   app.configure(item);
   app.configure(scores);
   app.configure(dashboard);
+  // Temp service
+  app.configure(eurovision);
 };

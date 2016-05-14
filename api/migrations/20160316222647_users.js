@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
     table.increments('id').primary();
     table.string('username').unique();
     table.string('password');
-    // table.bool('admin').default(false);
+    table.bool('admin').default(false);
     // table.timestamps();
   })
 };

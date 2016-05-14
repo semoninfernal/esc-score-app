@@ -1,5 +1,6 @@
 export const users = '/users';
 export const events = '/events';
+export const eurovision = '/eurovison';
 export const scoreTypes = '/events/:eventId/scoreTypes';
 export const members = '/events/:eventId/members';
 export const items = '/events/:eventId/items';
