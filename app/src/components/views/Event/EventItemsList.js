@@ -12,10 +12,16 @@ class EventItemsList extends Component {
 	}
 
 	setActiveItem(id) {
+		const { locked, setMessage } = this.props;
 		return () => {
-			this.setState({
-				activeItem: id !== this.state.activeItem ? id : null
-			});
+			if (!locked) {
+				this.setState({
+					activeItem: id !== this.state.activeItem ? id : null
+				});
+			} else {
+				setMessage('Detta event är låst');
+			}
+
 		};
 	}
 
@@ -39,8 +45,8 @@ class EventItemsList extends Component {
 }
 
 EventItemsList.propTypes = {
-	expandItem: func.isRequired,
-	items: array
+	items: array,
+	setMessage: func.isRequired
 };
 
 export default EventItemsList;

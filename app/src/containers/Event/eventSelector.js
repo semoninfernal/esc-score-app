@@ -12,6 +12,7 @@ const eventItemsSelector = (state, options) => ({
 	items: filterEventItems(state.data.eventItems, options)
 });
 const itemScoresSelector = state => Object.values(state.data.itemScores.items);
+const guiSelector = state => state.gui.event;
 
 function formatEvent(event) {
 	return isLoaded(event) ? {
@@ -47,8 +48,10 @@ const dataSelector = createSelector(
 
 const selector = createSelector(
 	dataSelector,
-	(data) => ({
-		data
+	guiSelector,
+	(data, gui) => ({
+		data,
+		gui
 	})
 );
 

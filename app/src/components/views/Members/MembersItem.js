@@ -1,4 +1,5 @@
 import React from 'react';
+import { Checkbox } from 'components/shared/form';
 
 const { object, func } = React.PropTypes;
 
@@ -8,8 +9,7 @@ function MembersItem(props) {
 
 	return (
 		<li className='member'>
-			<input id={inputId} type='checkbox' checked={isMember} onChange={toggleMembership} />
-			<label htmlFor={inputId}>{username}<span className='checkbox' /></label>
+			<Checkbox checked={isMember} id={inputId} label={username} onChange={toggleMembership} />
 		</li>
 	);
 }

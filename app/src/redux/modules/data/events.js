@@ -3,6 +3,7 @@ import { parseError } from 'utils/network';
 export const {
 	READ, READ_SUCCESS, READ_FAIL,
 	READ_ONE, READ_ONE_SUCCESS, READ_ONE_FAIL,
+	UPDATE, UPDATE_SUCCESS, UPDATE_FAIL,
 	CREATE, CREATE_SUCCESS, CREATE_FAIL
 } = createConstants('events');
 
@@ -36,6 +37,18 @@ function eventReducer(state, action) {
 			return {
 				loading: false,
 				loaded: false,
+				error: parseError(action.error)
+			};
+		case UPDATE:
+			return {
+				...state,
+				error: null
+			};
+		case UPDATE_SUCCESS:
+			return event(action.result);
+		case UPDATE_FAIL:
+			return {
+				...state,
 				error: parseError(action.error)
 			};
 		default:
@@ -76,6 +89,9 @@ function reducer(state = initialState, action = {}) {
 		case READ_ONE:
 		case READ_ONE_SUCCESS:
 		case READ_ONE_FAIL:
+		case UPDATE:
+		case UPDATE_SUCCESS:
+		case UPDATE_FAIL:
 			return {
 				...state,
 				items: {
@@ -107,6 +123,17 @@ function loadOne(id) {
 	};
 }
 
+function update(id, payload) {
+	return {
+		types: [UPDATE, UPDATE_SUCCESS, UPDATE_FAIL],
+		promise: client => client.patch({
+			path: `/events/${id}`,
+			payload
+		}),
+		id
+	};
+}
+
 function create(payload) {
 	return {
 		types: [CREATE, CREATE_SUCCESS, CREATE_FAIL],
@@ -120,5 +147,6 @@ export {
 	reducer,
 	load,
 	loadOne,
-	create
+	create,
+	update
 };

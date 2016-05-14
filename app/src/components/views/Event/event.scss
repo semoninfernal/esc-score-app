@@ -8,6 +8,11 @@
 		@include container();
 	}
 
+	.event-header {
+		display: flex;
+		justify-content: space-between;
+	}
+
 	.btn {
 		margin-top: 1em;
 	}
