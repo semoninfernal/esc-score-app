@@ -10,9 +10,7 @@ function formatMemberScores(groupedScores, members) {
 			{
 				id,
 				member: members.find(member => member.id === id).username,
-				memberId: members.find(member => member.id === id), // TEMP
-				score: groupedScores[memberId].reduce((sum, score) => sum + score.value, 0),
-				scoreIds: groupedScores[memberId].map(score => score.id) // TEMP
+				score: groupedScores[memberId].reduce((sum, score) => sum + score.value, 0)
 			}
 		];
 	}, []);
