@@ -2,6 +2,7 @@
   "host": "localhost",
   "port": 88,
   "postgres": {
+    "host": "db",
 		"database": "jalla-euro",
 		"user":     "jalla-euro",
 		"password": "jallajalla"

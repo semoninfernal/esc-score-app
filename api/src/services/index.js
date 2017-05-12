@@ -19,6 +19,10 @@ export default function() {
     debug: false
   });
 
+  db.migrate.latest().then(function() {
+    console.log("Latest migrations applied");
+  });
+
   app.set('knex', db);
 
   app.configure(authentication);

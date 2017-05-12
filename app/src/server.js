@@ -21,7 +21,8 @@ import getRoutes from 'routes';
 
 const app = new Express();
 const server = new http.Server(app);
-const targetUrl = `http://localhost:${config.api.port}`
+const targetUrl = `http://${config.api.host}:${config.api.port}`
+console.log("Proxy /api to ", targetUrl);
 const proxy = httpProxy.createProxyServer({
 	target: targetUrl,
 	ws: true

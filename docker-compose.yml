@@ -1,0 +1,37 @@
+version: '3'
+
+volumes:
+  database_data:
+    driver: local
+
+services:
+  db:
+    image: postgres:9.5
+    volumes:
+      - database_data:/var/lib/postgresql/data
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_DB=jalla-euro
+      - POSTGRES_USER=jalla-euro
+      - POSTGRES_PASSWORD=jallajalla
+  api:
+    build: ./api
+    depends_on:
+      - db
+    environment:
+      - NODE_ENV=production
+    expose:
+      - 88
+    ports:
+      - 88:88
+    links:
+      - "db:database"
+  app:
+    build: ./app
+    depends_on:
+      - api
+    ports:
+      - 80:80
+    links:
+      - "api:api"
