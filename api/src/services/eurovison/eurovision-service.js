@@ -2,117 +2,111 @@ import { Service } from 'feathers-knex';
 import errors from 'feathers-errors';
 import errorHandler from '../errors';
 
-const scoreTypes = [
-	'Låt',
-	'Framförande',
-	'Show'
-];
-
 const eventItems = [
 	{
-		name: `What's the pressure`,
-		description: `Belgien`
+		name: "I Feel Alive",
+		description: "Israel"
 	},
 	{
-		name: `I stand`,
-		description: `Tjeckien`
+		name: "Flashlight",
+		description: "Polen"
 	},
 	{
-		name: `Slow down`,
-		description: `Nederländerna`
+		name: "Story of My Life",
+		description: "Vitryssland"
 	},
 	{
-		name: `Miracle`,
-		description: `Azerbajdzjan`
+		name: "Running On Air",
+		description: "Österrike"
 	},
 	{
-		name: `Pioneer`,
-		description: `Ungern`
+		name: "Fly With Me",
+		description: "Armenien"
 	},
 	{
-		name: `No degree of separation`,
-		description: `Italien`
+		name: "Lights and Shadows",
+		description: "Nederländerna"
 	},
 	{
-		name: `Made of stars`,
-		description: `Israel`
+		name: "Hey Mamma",
+		description: "Moldavien"
 	},
 	{
-		name: `If love was a crime`,
-		description: `Bulgarien`
+		name: "Origo",
+		description: "Ungern"
 	},
 	{
-		name: `If I were sorry`,
-		description: `Sverige`
+		name: "Occidentali's Karma",
+		description: "Italien"
 	},
 	{
-		name: `Ghost`,
-		description: `Tyskland`
+		name: "Where I Am",
+		description: "Danmark"
 	},
 	{
-		name: `J'ai cherché`,
-		description: `Frankrike`
+		name: "Amar pelos dois",
+		description: "Portugal"
 	},
 	{
-		name: `Color of your life`,
-		description: `Polen`
+		name: "Skeletons",
+		description: "Azerbajdzjan"
 	},
 	{
-		name: `Sound of silence`,
-		description: `Australien`
+		name: "My Friend",
+		description: "Kroatien"
 	},
 	{
-		name: `Alter ego`,
-		description: `Cypern`
+		name: "Don't Come Easy",
+		description: "Australien"
 	},
 	{
-		name: `Goodbye (shelter)`,
-		description: `Serbien`
+		name: "This Is Love",
+		description: "Grekland"
 	},
 	{
-		name: `I've been waiting for this night`,
-		description: `Litauien`
+		name: "Do It For Your Lover",
+		description: "Spanien"
 	},
 	{
-		name: `Lighthouse`,
-		description: `Kroatien`
+		name: "Grab The Moment",
+		description: "Norge"
 	},
 	{
-		name: `You are the only one`,
-		description: `Ryssland`
+		name: "Never Give Up on You",
+		description: "Storbritannien"
 	},
 	{
-		name: `Say yay!`,
-		description: `Spanien`
+		name: "Gravity",
+		description: "Cypern"
 	},
 	{
-		name: `Heartbeat`,
-		description: `Lettland`
+		name: "Yodel It!",
+		description: "Rumänien"
 	},
 	{
-		name: `1944`,
-		description: `Ukraina`
+		name: "Perfect Life",
+		description: "Tyskland"
 	},
 	{
-		name: `Walk on water`,
-		description: `Malta`
+		name: "Time",
+		description: "Ukraina"
 	},
 	{
-		name: `Midnight gold`,
-		description: `Georgien`
+		name: "City Lights",
+		description: "Belgien"
 	},
 	{
-		name: `Loin d'ici`,
-		description: `Österrike`
+		name: "I Can’t Go On",
+		description: "Sverige"
 	},
 	{
-		name: `You are not alone`,
-		description: `Storbrittannien`
+		name: "Beautiful Mess",
+		description: "Bulgarien"
 	},
 	{
-		name: `Lovewave`,
-		description: `Armenien`
-	},
+		name: "Requiem",
+		description: "Frankrike"
+	}
 ]
 
 export default class EurovisonService extends Service {
@@ -127,7 +121,7 @@ export default class EurovisonService extends Service {
 	_createEvent(data) {
 		return this.knex('events')
 			.insert({
-				name: 'Eurovison 2016',
+				name: 'Eurovison 2017',
 				active: true
 			}, 'id')
 			.tap(rows => {
@@ -143,7 +137,7 @@ export default class EurovisonService extends Service {
 			});
 	}
 
-	_createEventScoreTypes(event) {
+	_createEventScoreTypes(event, scoreTypes) {
 		var base = {event_id: event, min: 0, max: 10};
 		function createScoreType(item) {
 			return {
@@ -179,7 +173,7 @@ export default class EurovisonService extends Service {
 		this._createEvent(data)
 			.then(eventId => {
 				return Promise.all([
-					this._createEventScoreTypes(eventId),
+					this._createEventScoreTypes(eventId, data.scoreTypes),
 					this._createEventItems(eventId)
 				]);
 			})

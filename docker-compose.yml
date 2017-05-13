@@ -27,6 +27,7 @@ services:
       - 88:88
     links:
       - "db:database"
+    restart: always
   app:
     build: ./app
     depends_on:
@@ -35,3 +36,4 @@ services:
       - 80:80
     links:
       - "api:api"
+    restart: always
