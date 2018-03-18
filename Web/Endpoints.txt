@@ -1,0 +1,53 @@
+This represents the "services" from feathers.
+We should not need to have the api tied so closely to the database schema.
+Try to extract "view"-endpoints where we handle all merging of data from different tables rather than doing it in the client-app.
+
+AUTH
+POST /auth/local => /account/login
+GET /auth/load => ???
+
+USERS
+GET /users (returns all registered users, ??? this should not be part of the public api)
+*** POST /users => /account/register
+
+All access to events and event dependent resources are restricted by membership
+All editing of events and event dependent resources is restricted by ownership
+
+EVENTS
+GET /events (returns events that user is member of)
+GET /events/{id} (returns specific event that user is member of)
+POST /events (created event with logged in user as owner)
+PATCH /events/{id} (update event where user is owner)
+
+EUROVISION (seed)
+POST /eurovison (creates a seeded event with current user as owner, should be replaced by GUI)
+
+SCORE TYPES
+export const scoreTypes = '/events/:eventId/scoreTypes';
+GET /events/{eventId}/scoreTypes (returns all score types of event user is member of)
+POST /events/{eventId}/scoreTypes (create new score type for event, should be restricted to owner of event)
+
+MEMBERS
+GET /events/{eventId}/members (returns all members of event)
+GET /events/{eventId}/members/{memberId} (returns the specified member ??? not sure this is needed)
+POST /events/{eventId}/members (adds user as member to event)
+DELETE /events/{eventId}/members/{memberId} (removes user from event, removing self is prohibited)
+
+ITEMS (to generic name, figure out something new)
+GET /events/{eventId}/items (returns all event items with current user's score)
+GET /events/{eventId}/items/{itemsId} (returns specified event item with current user's score)
+POST /events/{eventId}/items (adds new item to event)
+PATCH /events/{eventId}/items/{itemsId} (update specified item)
+DELETE /events/{eventId}/items/{itemsId} (remove specified item)
+
+SCORES
+All scores endpoint operates on current user/member
+GET /events/{eventId}/items/{itemId}/scores (returns all scores for event item)
+GET /events/{eventId}/items/{itemId}/scores/{scoreId} (returns specific score ??? obsolete?)
+POST /events/{eventId}/items/{itemId}/scores (creates new score for score type on event item, should support multiple creations in one request)
+PATCH /events/{eventId}/items/{itemId}/scores/{scoreId} (update specifed score)
+
+DASHBOARD
+GET /events/{eventId}/dashboard (returns dashboard data for event, restricted to membership)
+
+
