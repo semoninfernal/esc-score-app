@@ -11,6 +11,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Web.Data;
 using Web.Models;
 using Web.Services;
+using System.Reflection;
+using Npgsql;
+using SimpleMigrations.DatabaseProvider;
+using SimpleMigrations;
 
 namespace Web
 {
@@ -47,6 +51,17 @@ namespace Web
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
+
+            // Migrate to latest database version
+            var migrationAssembly = typeof(Startup).GetTypeInfo().Assembly;
+            using (var connection = new NpgsqlConnection(Configuration.GetConnectionString("DefaultConnection"))) {
+                var dbProvider = new PostgresqlDatabaseProvider(connection);
+                var migrator = new SimpleMigrator(migrationAssembly, dbProvider);
+
+                migrator.Load();
+                migrator.MigrateToLatest();
+            }
+
 
             app.UseAuthentication();
 
