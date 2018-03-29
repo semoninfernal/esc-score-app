@@ -12,9 +12,8 @@ using Web.Data;
 using Web.Models;
 using Web.Services;
 using System.Reflection;
-using Npgsql;
-using SimpleMigrations.DatabaseProvider;
-using SimpleMigrations;
+using Web.Authorization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Web
 {
@@ -37,11 +36,20 @@ namespace Web
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+           
+
+            services.AddMvc()
+                    .AddJsonOptions(options => {
+                        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                        options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+            });
+
+            // Resource based Authorization
+            services.AddSingleton<IAuthorizationHandler, EventAuthorizationHandler>();
+
             // Add application services.
             services.AddTransient<EventManager, EventManager>();
             services.AddTransient<IEmailSender, EmailSender>();
-
-            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,17 +60,6 @@ namespace Web
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
-
-            // Migrate to latest database version
-            var migrationAssembly = typeof(Startup).GetTypeInfo().Assembly;
-            using (var connection = new NpgsqlConnection(Configuration.GetConnectionString("DefaultConnection"))) {
-                var dbProvider = new PostgresqlDatabaseProvider(connection);
-                var migrator = new SimpleMigrator(migrationAssembly, dbProvider);
-
-                migrator.Load();
-                migrator.MigrateToLatest();
-            }
-
 
             app.UseAuthentication();
 

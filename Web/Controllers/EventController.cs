@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using System;
-using Dapper;
 using Web.Filters;
 using Web.Authorization;
 
@@ -42,43 +41,26 @@ namespace Web.Controllers
         public async Task<IActionResult> Find(int id)
         {
             var userId = _userManager.GetUserId(User);
-            var _event = await _eventManager.FindByIdAsync(id);
+            var _event = await _eventManager.FindEventByIdAsync(id);
 
-            var authorizationResult = _authorizationService.AuthorizeAsync(User, _event, Operations.Read);
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User, _event, Operations.Read);
 
-            if (authorizationResult.IsCompletedSuccessfully) {
+            if (authorizationResult.Succeeded) {
                 return new OkObjectResult(_event);
             } else if (User.Identity.IsAuthenticated) {
-                return new ForbidResult();
+                return new StatusCodeResult(403);
             } else {
-                return new ChallengeResult();
+                return new StatusCodeResult(401);
             }
         }
 
         [HttpPost]
         [Authorize]
+        [ValidateModel]
         public async Task<IActionResult> Create([FromBody] Event model) {
-            throw new NotImplementedException();
-            // All actions except login and register is based on current user
-            // Create a context wrapper that is initialized by an attribute that populates
-            // user and event 
-            //var user = await _userManager.GetUserAsync(User);
+            var _event = await _eventManager.CreateEventAsync(model, _userManager.GetUserId(User));
 
-            //var eventResult = await _dbContext.Events.AddAsync(model);
-            //var createdEvent = eventResult.Entity;
-
-            //var participant = new EventParticipant
-            //{
-            //    ApplicationUserId = user.Id,
-            //    EventId = createdEvent.Id,
-            //};
-
-            //var participantResult = await _dbContext.EventParticipants.AddAsync(participant);
-
-            //// Add participant as owner of event
-            //// await _dbContext.Events.Update()
-
-            //return new CreatedResult($"/events/{createdEvent.Id}", createdEvent);
+            return new CreatedAtActionResult("Find", "Event", new { id = _event.Id }, _event );
         }
     }
 }

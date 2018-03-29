@@ -14,9 +14,9 @@ All access to events and event dependent resources are restricted by membership
 All editing of events and event dependent resources is restricted by ownership
 
 EVENTS
-GET /events (returns events that user is member of)
-GET /events/{id} (returns specific event that user is member of)
-POST /events (created event with logged in user as owner)
+*** GET /events (returns events that user is member of)
+*** GET /events/{id} (returns specific event that user is member of)
+*** POST /events (created event with logged in user as owner)
 PATCH /events/{id} (update event where user is owner)
 
 EUROVISION (seed)

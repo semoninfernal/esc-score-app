@@ -7,6 +7,9 @@ namespace Web.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Event> Events { get; set; }
+        public DbSet<EventParticipant> EventParticipants { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -15,10 +18,19 @@ namespace Web.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-        }
 
-        public DbConnection GetDbConnection() {
-            return Database.GetDbConnection();
+            builder.Entity<EventParticipant>()
+                   .HasKey(ep => new { ep.EventId, ep.UserId });
+
+            builder.Entity<EventParticipant>()
+                   .HasOne(ep => ep.Event)
+                   .WithMany(e => e.EventParticipants)
+                   .HasForeignKey(ep => ep.EventId);
+
+            builder.Entity<EventParticipant>()
+                   .HasOne(ep => ep.User)
+                   .WithMany(u => u.Events)
+                   .HasForeignKey(ep => ep.UserId);
         }
     }
 }

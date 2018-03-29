@@ -1,22 +1,26 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 using Web.Models;
 
 namespace Web.Models
 {
-    public class Event {
+    public class Event
+    {
         public int Id { get; set; }
-        
+
         [Required]
         public string Name { get; set; }
 
         public bool Active { get; set; }
 
+        [JsonIgnore]
         public string OwnerId { get; set;  }
 
-        public EventParticipant Owner { get; set; }
+        public ApplicationUser Owner { get; set; }
 
-        public List<EventParticipant> Participants { get; set; }
+        [JsonIgnore]
+        public List<EventParticipant> EventParticipants { get; set; }
     }
 }

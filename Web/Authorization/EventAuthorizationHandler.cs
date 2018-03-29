@@ -13,7 +13,7 @@ namespace Web.Authorization
         {
             var userName = context.User.Identity?.Name;
             var isOwner = resource.Owner?.UserName == userName && userName != null;
-            var isParticipant = (resource.Participants?.Any(p => p.UserName == userName)).Value && userName != null;
+            var isParticipant = (resource.EventParticipants?.Any(p => p.User?.UserName == userName)).Value && userName != null;
 
             if (isParticipant && Operations.IsRead(requirement)) {
                 context.Succeed(requirement);
