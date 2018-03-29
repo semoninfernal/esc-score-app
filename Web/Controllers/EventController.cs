@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using System;
+using Dapper;
+using Web.Filters;
+using Web.Authorization;
 
 namespace Web.Controllers
 {
@@ -15,36 +18,41 @@ namespace Web.Controllers
     public class EventController : Controller
     {
         private UserManager<ApplicationUser> _userManager;
-        private ApplicationDbContext _dbContext;
+        private EventManager _eventManager;
+        private IAuthorizationService _authorizationService;
 
-        public EventController(UserManager<ApplicationUser> userManager, ApplicationDbContext dbContext) {
+        public EventController(UserManager<ApplicationUser> userManager, EventManager eventManager, IAuthorizationService authorizationService) {
             _userManager = userManager;
-            _dbContext = dbContext;
+            _eventManager = eventManager;
+            _authorizationService = authorizationService;
         }
 
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> Index() {
-            throw new NotImplementedException();
-            //var user = await _userManager.GetUserAsync(User);
-            //var result = await _dbContext.Events.Where(e => e.Participants.Any(p => p.ApplicationUserId == user.Id)).ToListAsync();
+            var userId = _userManager.GetUserId(User);
+            var events = await _eventManager.GetEventsAsync(userId);
 
-            //return new OkObjectResult(result);
+            return new OkObjectResult(events);
         }
 
         [HttpGet]
-        [Route("{id}")]
-        [Authorize]
-        public async Task<IActionResult> Find(int id) {
-            throw new NotImplementedException();
-            //var user = await _userManager.GetUserAsync(User);
-            //var result = await _dbContext.Events.FindAsync(id);
+        [Route("{id:int}")]
+        [ValidateModel]
+        public async Task<IActionResult> Find(int id)
+        {
+            var userId = _userManager.GetUserId(User);
+            var _event = await _eventManager.FindByIdAsync(id);
 
-            ////if (result.Participants.Any(p => p.ApplicationUserId == user.Id)) {
-            ////    return new OkObjectResult(result);
-            ////}
+            var authorizationResult = _authorizationService.AuthorizeAsync(User, _event, Operations.Read);
 
-            //return new NotFoundResult();
+            if (authorizationResult.IsCompletedSuccessfully) {
+                return new OkObjectResult(_event);
+            } else if (User.Identity.IsAuthenticated) {
+                return new ForbidResult();
+            } else {
+                return new ChallengeResult();
+            }
         }
 
         [HttpPost]

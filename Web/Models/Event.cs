@@ -13,7 +13,7 @@ namespace Web.Models
 
         public bool Active { get; set; }
 
-        public int OwnerId { get; set;  }
+        public string OwnerId { get; set;  }
 
         public EventParticipant Owner { get; set; }
 

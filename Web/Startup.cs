@@ -38,6 +38,7 @@ namespace Web
                 .AddDefaultTokenProviders();
 
             // Add application services.
+            services.AddTransient<EventManager, EventManager>();
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();

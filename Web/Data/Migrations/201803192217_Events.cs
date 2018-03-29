@@ -8,26 +8,26 @@ namespace Web.Data.Migrations
         protected override void Up()
         {
             Execute(@"
-                CREATE TABLE Events (
-                    Id serial NOT NULL PRIMARY KEY,
-                    Name varchar(256) NOT NULL,
-                    OwnerId varchar(256),
-                    Active boolean NOT NULL
+                CREATE TABLE ""Events"" (
+                    ""Id"" serial NOT NULL PRIMARY KEY,
+                    ""Name"" varchar(256) NOT NULL,
+                    ""OwnerId"" text REFERENCES ""AspNetUsers"",
+                    ""Active"" boolean NOT NULL
                 )
             ");
 
             Execute(@"
-                CREATE TABLE EventParticipants (
-                    UserId uuid NOT NULL,
-                    EventId integer NOT NULL,
-                    PRIMARY KEY(UserId, EventId)
+                CREATE TABLE ""EventParticipants"" (
+                    ""UserId"" text NOT NULL,
+                    ""EventId"" integer NOT NULL,
+                    PRIMARY KEY(""UserId"", ""EventId"")
                 )
             ");
         }
 
         protected override void Down()
         {
-            Execute(@"DROP TABLE (EventParticipants, Event)");
+            Execute(@"DROP TABLE (""EventParticipants"", ""Event"")");
         }
     }
 }

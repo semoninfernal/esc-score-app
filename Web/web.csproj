@@ -24,4 +24,11 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Authorization\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Authorization\EventParticipantRequirent.cs" />
+    <Compile Remove="Authorization\EventParticipantAuthorizationHandler.cs" />
+  </ItemGroup>
 </Project>
