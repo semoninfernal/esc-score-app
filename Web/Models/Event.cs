@@ -22,5 +22,8 @@ namespace Web.Models
 
         [JsonIgnore]
         public List<EventParticipant> EventParticipants { get; set; }
+
+        public List<EventItem> EventItems { get; set; }
+        public List<EventScoreType> EventScoreTypes { get; set; }
     }
 }

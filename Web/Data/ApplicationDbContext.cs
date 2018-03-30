@@ -9,6 +9,8 @@ namespace Web.Data
     {
         public DbSet<Event> Events { get; set; }
         public DbSet<EventParticipant> EventParticipants { get; set; }
+        public DbSet<EventItem> EventItems { get; set; }
+        public DbSet<EventScoreType> EventScoreTypes { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -31,6 +33,10 @@ namespace Web.Data
                    .HasOne(ep => ep.User)
                    .WithMany(u => u.Events)
                    .HasForeignKey(ep => ep.UserId);
+
+            builder.Entity<EventScoreType>()
+                   .HasIndex(est => new { est.Name, est.EventId })
+                   .IsUnique();
         }
     }
 }

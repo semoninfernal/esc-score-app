@@ -26,7 +26,6 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<IActionResult> Index(int eventId)
         {
             var userId = _userManager.GetUserId(User);
