@@ -15,9 +15,9 @@ namespace Web.Authorization
             var isOwner = resource.Owner?.UserName == userName && userName != null;
             var isParticipant = (resource.EventParticipants?.Any(p => p.User?.UserName == userName)).Value && userName != null;
 
-            if (isParticipant && Operations.IsRead(requirement)) {
+            if ((isParticipant || isOwner) && Operations.IsRead(requirement)) {
                 context.Succeed(requirement);
-            } else if (isOwner && (Operations.IsCreate(requirement) || Operations.IsUpdate(requirement) ) ) {
+            } else if (isOwner && (Operations.IsCreate(requirement) || Operations.IsUpdate(requirement) || Operations.IsDelete(requirement) ) ) {
                 context.Succeed(requirement);
             }
 

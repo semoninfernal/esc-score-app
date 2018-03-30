@@ -1,9 +1,11 @@
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Web.Models
 {
     public class EventParticipant
     {
+        [Required]
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
 

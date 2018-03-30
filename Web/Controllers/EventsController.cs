@@ -14,23 +14,23 @@ using Web.Authorization;
 namespace Web.Controllers
 {
     [Route("/events")]
-    public class EventController : Controller
+    public class EventsController : Controller
     {
         private UserManager<ApplicationUser> _userManager;
         private EventManager _eventManager;
-        private IAuthorizationService _authorizationService;
+        private ResourceAuthorizationHelper _resourceAuthorizationHelper;
 
-        public EventController(UserManager<ApplicationUser> userManager, EventManager eventManager, IAuthorizationService authorizationService) {
+        public EventsController(UserManager<ApplicationUser> userManager, EventManager eventManager, ResourceAuthorizationHelper resourceAuthorizationHelper) {
             _userManager = userManager;
             _eventManager = eventManager;
-            _authorizationService = authorizationService;
+            _resourceAuthorizationHelper = resourceAuthorizationHelper;
         }
 
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> Index() {
             var userId = _userManager.GetUserId(User);
-            var events = await _eventManager.GetEventsAsync(userId);
+            var events = await _eventManager.ListEventsAsync(userId);
 
             return new OkObjectResult(events);
         }
@@ -43,15 +43,7 @@ namespace Web.Controllers
             var userId = _userManager.GetUserId(User);
             var _event = await _eventManager.FindEventByIdAsync(id);
 
-            var authorizationResult = await _authorizationService.AuthorizeAsync(User, _event, Operations.Read);
-
-            if (authorizationResult.Succeeded) {
-                return new OkObjectResult(_event);
-            } else if (User.Identity.IsAuthenticated) {
-                return new StatusCodeResult(403);
-            } else {
-                return new StatusCodeResult(401);
-            }
+            return await _resourceAuthorizationHelper.GetAuthorizedResourceAsync(User, _event, Operations.Read);
         }
 
         [HttpPost]
@@ -60,7 +52,7 @@ namespace Web.Controllers
         public async Task<IActionResult> Create([FromBody] Event model) {
             var _event = await _eventManager.CreateEventAsync(model, _userManager.GetUserId(User));
 
-            return new CreatedAtActionResult("Find", "Event", new { id = _event.Id }, _event );
+            return new CreatedAtActionResult("Find", "Events", new { id = _event.Id }, _event );
         }
     }
 }

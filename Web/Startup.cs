@@ -46,6 +46,7 @@ namespace Web
 
             // Resource based Authorization
             services.AddSingleton<IAuthorizationHandler, EventAuthorizationHandler>();
+            services.AddSingleton<ResourceAuthorizationHelper, ResourceAuthorizationHelper>();
 
             // Add application services.
             services.AddTransient<EventManager, EventManager>();

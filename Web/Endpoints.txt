@@ -28,10 +28,10 @@ GET /events/{eventId}/scoreTypes (returns all score types of event user is membe
 POST /events/{eventId}/scoreTypes (create new score type for event, should be restricted to owner of event)
 
 MEMBERS
-GET /events/{eventId}/members (returns all members of event)
-GET /events/{eventId}/members/{memberId} (returns the specified member ??? not sure this is needed)
-POST /events/{eventId}/members (adds user as member to event)
-DELETE /events/{eventId}/members/{memberId} (removes user from event, removing self is prohibited)
+*** GET /events/{eventId}/members (returns all members of event)
+*** GET /events/{eventId}/members/{memberId} (returns the specified member ??? not sure this is needed)
+*** POST /events/{eventId}/members (adds user as member to event)
+*** DELETE /events/{eventId}/members/{memberId} (removes user from event, removing self is prohibited)
 
 ITEMS (to generic name, figure out something new)
 GET /events/{eventId}/items (returns all event items with current user's score)

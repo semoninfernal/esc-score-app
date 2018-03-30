@@ -16,7 +16,7 @@ namespace Web.Data
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<Event>> GetEventsAsync(string userId) {
+        public async Task<IEnumerable<Event>> ListEventsAsync(string userId) {
             return await _dbContext
                 .Events
                 .Include(e => e.EventParticipants)
@@ -46,6 +46,23 @@ namespace Web.Data
             await _dbContext.SaveChangesAsync();
 
             return _event.Entity;
+        }
+
+        public async Task<ApplicationUser> AddMemberAsync(Event _event, EventParticipant model) {
+            var eventParticipant = await _dbContext.EventParticipants.AddAsync(new EventParticipant
+            {
+                UserId = model.UserId,
+                EventId = _event.Id
+            });
+
+            await _dbContext.SaveChangesAsync();
+
+            return await _dbContext.Users.FindAsync(eventParticipant.Entity.UserId);
+        }
+
+        public async Task RemoveMemberAsync(EventParticipant eventParticipant) {
+            _dbContext.Remove(eventParticipant);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }
