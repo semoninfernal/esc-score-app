@@ -65,7 +65,7 @@ namespace Web.Controllers
             {
                 var user = await _eventManager.AddMemberAsync(_event, model);
 
-                return new CreatedAtActionResult("Find", "EventMembers", new { eventId, memberId = user }, user );
+                return new CreatedAtActionResult(nameof(Find), "EventMembers", new { eventId, memberId = user }, user );
             });
         }
 

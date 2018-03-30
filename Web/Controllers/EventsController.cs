@@ -52,7 +52,7 @@ namespace Web.Controllers
         public async Task<IActionResult> Create([FromBody] Event model) {
             var _event = await _eventManager.CreateEventAsync(model, _userManager.GetUserId(User));
 
-            return new CreatedAtActionResult("Find", "Events", new { id = _event.Id }, _event );
+            return new CreatedAtActionResult(nameof(Find), "Events", new { id = _event.Id }, _event );
         }
     }
 }

@@ -34,6 +34,10 @@ namespace Web.Data
                    .WithMany(u => u.Events)
                    .HasForeignKey(ep => ep.UserId);
 
+            builder.Entity<EventItem>()
+                   .HasIndex(ei => new { ei.Name, ei.EventId })
+                   .IsUnique();
+
             builder.Entity<EventScoreType>()
                    .HasIndex(est => new { est.Name, est.EventId })
                    .IsUnique();

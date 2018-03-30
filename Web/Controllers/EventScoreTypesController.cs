@@ -54,7 +54,8 @@ namespace Web.Controllers
             {
                 var eventScoreType = await _eventManager.AddScoreTypeAsync(_event, model);
 
-                return new CreatedAtActionResult("Create", "EventScoreTypes", new { eventId }, eventScoreType);
+                // We have no need for a Find action in this resource, created at index will have to do
+                return new CreatedAtActionResult(nameof(Index), "EventScoreTypes", new { eventId }, eventScoreType);
             });
         }
     }

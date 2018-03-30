@@ -12,7 +12,6 @@ namespace Web.Models
         public string Description { get; set; }
         public string Image { get; set; }
         public int SortIndex { get; set; }
-
         public int EventId { get; set; }
     }
 }

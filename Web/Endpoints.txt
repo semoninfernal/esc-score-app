@@ -24,8 +24,8 @@ POST /eurovison (creates a seeded event with current user as owner, should be re
 
 SCORE TYPES
 export const scoreTypes = '/events/:eventId/scoreTypes';
-GET /events/{eventId}/scoreTypes (returns all score types of event user is member of)
-POST /events/{eventId}/scoreTypes (create new score type for event, should be restricted to owner of event)
+*** GET /events/{eventId}/scoreTypes (returns all score types of event user is member of)
+*** POST /events/{eventId}/scoreTypes (create new score type for event, should be restricted to owner of event)
 
 MEMBERS
 *** GET /events/{eventId}/members (returns all members of event)
@@ -34,11 +34,11 @@ MEMBERS
 *** DELETE /events/{eventId}/members/{memberId} (removes user from event, removing self is prohibited)
 
 ITEMS (to generic name, figure out something new)
-GET /events/{eventId}/items (returns all event items with current user's score)
-GET /events/{eventId}/items/{itemsId} (returns specified event item with current user's score)
-POST /events/{eventId}/items (adds new item to event)
-PATCH /events/{eventId}/items/{itemsId} (update specified item)
-DELETE /events/{eventId}/items/{itemsId} (remove specified item)
+*** GET /events/{eventId}/items (returns all event items with current user's score)
+--- GET /events/{eventId}/items/{itemsId} (returns specified event item with current user's score)
+*** POST /events/{eventId}/items (adds new item to event)
+--- PATCH /events/{eventId}/items/{itemsId} (update specified item)
+--- DELETE /events/{eventId}/items/{itemsId} (remove specified item)
 
 SCORES
 All scores endpoint operates on current user/member

@@ -39,15 +39,19 @@ namespace Web.Data
 
         public async Task<Event> CreateEventAsync(Event model, string userId)
         {
-            var _event = await _dbContext.AddAsync(new Event
-            {
-                Name = model.Name,
-                Active = model.Active,
-                OwnerId = userId,
-                EventParticipants = new List<EventParticipant> {
-                    new EventParticipant { UserId = userId }
-                }
-            });
+            var _event = await _dbContext
+                .Events
+                .AddAsync(
+                    new Event
+                    {
+                        Name = model.Name,
+                        Active = model.Active,
+                        OwnerId = userId,
+                        EventParticipants = new List<EventParticipant> {
+                            new EventParticipant { UserId = userId }
+                        }
+                    }
+            );
             await _dbContext.SaveChangesAsync();
 
             return _event.Entity;
@@ -57,11 +61,15 @@ namespace Web.Data
         #region MEMBERS
         public async Task<ApplicationUser> AddMemberAsync(Event _event, EventParticipant model)
         {
-            var eventParticipant = await _dbContext.EventParticipants.AddAsync(new EventParticipant
-            {
-                UserId = model.UserId,
-                EventId = _event.Id
-            });
+            var eventParticipant = await _dbContext
+                .EventParticipants
+                .AddAsync(
+                    new EventParticipant
+                    {
+                        UserId = model.UserId,
+                        EventId = _event.Id
+                    }
+            );
 
             await _dbContext.SaveChangesAsync();
 
@@ -75,6 +83,42 @@ namespace Web.Data
         }
         #endregion
 
+        #region ITEMS
+        // TODO All event items should be included in the FindEventByIdAsync result, or in some overload to that method
+        public async Task<IEnumerable<EventItem>> GetEventItemsAsync(int eventId) {
+            // TODO This should include scores aswell
+            return await _dbContext
+                .EventItems
+                .Where(ei => ei.EventId == eventId)
+                .ToListAsync();
+        }
+
+        public async Task<EventItem> FindEventItemByIdAsync(int eventItemId) {
+            return await _dbContext
+                .EventItems
+                .Where(ei => ei.Id == eventItemId)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<EventItem> AddEventItemAsync(Event _event, EventItem model) {
+            var eventItem = await _dbContext
+                .EventItems
+                .AddAsync(
+                    new EventItem
+                    {
+                        Name = model.Name,
+                        Description = model.Description,
+                        Image = model.Image,
+                        SortIndex = model.SortIndex,
+                        EventId = _event.Id
+                    });
+
+            await _dbContext.SaveChangesAsync();
+
+            return eventItem.Entity;
+        }
+        #endregion
+
         #region SCORE TYPES
         public async Task<IEnumerable<EventScoreType>> GetEventScoreTypes(int eventId) {
             return await _dbContext
@@ -84,13 +128,17 @@ namespace Web.Data
         }
 
         public async Task<EventScoreType> AddScoreTypeAsync(Event _event, EventScoreType model) {
-            var eventScoreType = await _dbContext.EventScoreTypes.AddAsync(new EventScoreType
-            {
-                Name = model.Name,
-                Min = model.Min,
-                Max = model.Max,
-                EventId = _event.Id
-            });
+            var eventScoreType = await _dbContext
+                .EventScoreTypes
+                .AddAsync(
+                    new EventScoreType
+                    {
+                        Name = model.Name,
+                        Min = model.Min,
+                        Max = model.Max,
+                        EventId = _event.Id
+                    }
+            );
 
             await _dbContext.SaveChangesAsync();
 
