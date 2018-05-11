@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Web.Authorization;
 using Web.Data;
 using Web.Filters;
+using Web.Helpers;
 using Web.Models;
 
 namespace Web.Controllers
@@ -63,9 +64,14 @@ namespace Web.Controllers
 
             return await _resourceAuthorizationHelper.GetAuthorizedResultAsync(User, _event, Operations.Create, async () =>
             {
-                var user = await _eventManager.AddMemberAsync(_event, model);
+                var result = await _eventManager.AddMemberAsync(_event, model);
 
-                return new CreatedAtActionResult(nameof(Find), "EventMembers", new { eventId, memberId = user }, user );
+                if (result.Success) {
+                    var user = result.Entity;
+                    return new CreatedAtActionResult(nameof(Find), "EventMembers", new { eventId, memberId = user }, user);
+                }
+
+                return ResourceErrorResultHelper.CreateResourceErrorResult(result);
             });
         }
 

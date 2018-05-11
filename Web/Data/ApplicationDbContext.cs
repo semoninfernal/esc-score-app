@@ -11,6 +11,7 @@ namespace Web.Data
         public DbSet<EventParticipant> EventParticipants { get; set; }
         public DbSet<EventItem> EventItems { get; set; }
         public DbSet<EventScoreType> EventScoreTypes { get; set; }
+        public DbSet<EventScore> EventScores { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -40,6 +41,10 @@ namespace Web.Data
 
             builder.Entity<EventScoreType>()
                    .HasIndex(est => new { est.Name, est.EventId })
+                   .IsUnique();
+
+            builder.Entity<EventScore>()
+                   .HasIndex("EventItemId", "EventScoreTypeId", "EventParticipantUserId")
                    .IsUnique();
         }
     }

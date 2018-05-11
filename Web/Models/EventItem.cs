@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Web.Models
 {
@@ -13,5 +15,7 @@ namespace Web.Models
         public string Image { get; set; }
         public int SortIndex { get; set; }
         public int EventId { get; set; }
+
+        public List<EventScore> EventScores { get; set; }
     }
 }

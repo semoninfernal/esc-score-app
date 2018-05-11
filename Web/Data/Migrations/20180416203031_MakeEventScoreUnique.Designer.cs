@@ -11,8 +11,8 @@ using Web.Data;
 namespace Web.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180330201521_CreateEventItems")]
-    partial class CreateEventItems
+    [Migration("20180416203031_MakeEventScoreUnique")]
+    partial class MakeEventScoreUnique
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -218,6 +218,9 @@ namespace Web.Data.Migrations
 
                     b.HasIndex("EventId");
 
+                    b.HasIndex("Name", "EventId")
+                        .IsUnique();
+
                     b.ToTable("EventItems");
                 });
 
@@ -232,6 +235,33 @@ namespace Web.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("EventParticipants");
+                });
+
+            modelBuilder.Entity("Web.Models.EventScore", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("EventItemId");
+
+                    b.Property<int?>("EventParticipantEventId");
+
+                    b.Property<string>("EventParticipantUserId");
+
+                    b.Property<int>("EventScoreTypeId");
+
+                    b.Property<int>("Value");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventScoreTypeId");
+
+                    b.HasIndex("EventParticipantEventId", "EventParticipantUserId");
+
+                    b.HasIndex("EventItemId", "EventScoreTypeId", "EventParticipantUserId")
+                        .IsUnique();
+
+                    b.ToTable("EventScores");
                 });
 
             modelBuilder.Entity("Web.Models.EventScoreType", b =>
@@ -329,6 +359,23 @@ namespace Web.Data.Migrations
                         .WithMany("Events")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Web.Models.EventScore", b =>
+                {
+                    b.HasOne("Web.Models.EventItem")
+                        .WithMany("EventScores")
+                        .HasForeignKey("EventItemId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Web.Models.EventScoreType", "EventScoreType")
+                        .WithMany()
+                        .HasForeignKey("EventScoreTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Web.Models.EventParticipant", "EventParticipant")
+                        .WithMany("EventScores")
+                        .HasForeignKey("EventParticipantEventId", "EventParticipantUserId");
                 });
 
             modelBuilder.Entity("Web.Models.EventScoreType", b =>

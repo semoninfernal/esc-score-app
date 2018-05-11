@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,7 @@ namespace Web.Controllers
 
             return await _resourceAuthorizationHelper.GetAuthorizedResultAsync(User, _event, Operations.Read, async () =>
             {
-                var eventItems = await _eventManager.GetEventItemsAsync(_event.Id);
+                var eventItems = await _eventManager.ListEventItemsAsync(eventId, userId);
 
                 return new OkObjectResult(eventItems);
             });
@@ -42,7 +43,6 @@ namespace Web.Controllers
         [HttpGet]
         [Route("{itemId:int}")]
         public async Task<IActionResult> Find(int eventId, int itemId) {
-            var userId = _userManager.GetUserId(User);
             var _event = await _eventManager.FindEventByIdAsync(eventId);
 
             if (_event == null) {
@@ -51,7 +51,8 @@ namespace Web.Controllers
 
             return await _resourceAuthorizationHelper.GetAuthorizedResultAsync(User, _event, Operations.Read, async () =>
             {
-                var eventItem = await _eventManager.FindEventItemByIdAsync(itemId);
+                var userId = _userManager.GetUserId(User);
+                var eventItem = await _eventManager.FindEventItemByIdAsync(itemId, userId);
 
                 if (eventItem == null)
                 {

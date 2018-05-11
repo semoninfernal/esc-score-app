@@ -13,9 +13,6 @@
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.2" PrivateAssets="All" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.0.1" />
-    <PackageReference Include="Dapper" Version="1.50.4" />
-    <PackageReference Include="Npgsql" Version="3.2.7" />
-    <PackageReference Include="Simple.Migrations" Version="0.9.19" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +23,7 @@
 
   <ItemGroup>
     <Folder Include="Authorization\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Authorization\EventParticipantRequirent.cs" />
@@ -33,5 +31,13 @@
     <Compile Remove="Models\Participant.cs" />
     <Compile Remove="Authorization\EventMembersAuthorizationHandler.cs" />
     <Compile Remove="Authorization\EventMembersAuthorizationHandler.cs" />
+    <Compile Remove="Data\Migrations\201803192217_Events.cs" />
+    <Compile Remove="Data\EventManagerQueryOptions.cs" />
+    <Compile Remove="Data\EventResult.cs" />
+    <Compile Remove="Data\ResultTypes.cs" />
+    <Compile Remove="Data\ResultTypes.cs" />
+    <Compile Remove="Data\EventResult.cs" />
+    <Compile Remove="Extensions\ControllerExtensions.cs" />
+    <Compile Remove="Results\ResourceErrorResult.cs" />
   </ItemGroup>
 </Project>

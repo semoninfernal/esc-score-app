@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Web.Data.Migrations
 {
-    public partial class CreateEventItems : Migration
+    public partial class CreateEventItemsSchema : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -64,10 +64,66 @@ namespace Web.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "EventScores",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    EventItemId = table.Column<int>(nullable: false),
+                    EventParticipantEventId = table.Column<int>(nullable: true),
+                    EventParticipantUserId = table.Column<string>(nullable: true),
+                    EventScoreTypeId = table.Column<int>(nullable: false),
+                    Value = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EventScores", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EventScores_EventItems_EventItemId",
+                        column: x => x.EventItemId,
+                        principalTable: "EventItems",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EventScores_EventScoreTypes_EventScoreTypeId",
+                        column: x => x.EventScoreTypeId,
+                        principalTable: "EventScoreTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EventScores_EventParticipants_EventParticipantEventId_EventParticipantUserId",
+                        columns: x => new { x.EventParticipantEventId, x.EventParticipantUserId },
+                        principalTable: "EventParticipants",
+                        principalColumns: new[] { "EventId", "UserId" },
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_EventItems_EventId",
                 table: "EventItems",
                 column: "EventId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EventItems_Name_EventId",
+                table: "EventItems",
+                columns: new[] { "Name", "EventId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EventScores_EventItemId",
+                table: "EventScores",
+                column: "EventItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EventScores_EventScoreTypeId",
+                table: "EventScores",
+                column: "EventScoreTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EventScores_EventParticipantEventId_EventParticipantUserId",
+                table: "EventScores",
+                columns: new[] { "EventParticipantEventId", "EventParticipantUserId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_EventScoreTypes_EventId",
@@ -94,6 +150,9 @@ namespace Web.Data.Migrations
             migrationBuilder.DropForeignKey(
                 name: "FK_Events_AspNetUsers_OwnerId",
                 table: "Events");
+
+            migrationBuilder.DropTable(
+                name: "EventScores");
 
             migrationBuilder.DropTable(
                 name: "EventItems");

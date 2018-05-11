@@ -42,12 +42,10 @@ ITEMS (to generic name, figure out something new)
 
 SCORES
 All scores endpoint operates on current user/member
-GET /events/{eventId}/items/{itemId}/scores (returns all scores for event item)
-GET /events/{eventId}/items/{itemId}/scores/{scoreId} (returns specific score ??? obsolete?)
-POST /events/{eventId}/items/{itemId}/scores (creates new score for score type on event item, should support multiple creations in one request)
-PATCH /events/{eventId}/items/{itemId}/scores/{scoreId} (update specifed score)
+--- GET /events/{eventId}/items/{itemId}/scores (returns all scores for event item) (ADDED TO /items)
+--- GET /events/{eventId}/items/{itemId}/scores/{scoreId} (returns specific score ??? obsolete?)
+*** POST /events/{eventId}/items/{itemId}/scores (creates new score for score type on event item, should support multiple creations in one request)
+*** PATCH /events/{eventId}/items/{itemId}/scores/{scoreId} (update specifed score)
 
 DASHBOARD
 GET /events/{eventId}/dashboard (returns dashboard data for event, restricted to membership)
-
-

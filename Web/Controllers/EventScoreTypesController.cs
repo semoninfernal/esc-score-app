@@ -34,7 +34,7 @@ namespace Web.Controllers
 
             return await _resourceAuthorizationHelper.GetAuthorizedResultAsync(User, _event, Operations.Read, async () =>
             {
-                var eventScoreTypes = await _eventManager.GetEventScoreTypes(_event.Id);
+                var eventScoreTypes = await _eventManager.ListEventScoreTypes(_event.Id);
 
                 return new OkObjectResult(eventScoreTypes);
             });

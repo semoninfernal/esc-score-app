@@ -11,9 +11,10 @@ using Web.Data;
 namespace Web.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180331191443_CreateEventItemsSchema")]
+    partial class CreateEventItemsSchema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -253,12 +254,11 @@ namespace Web.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EventItemId");
+
                     b.HasIndex("EventScoreTypeId");
 
                     b.HasIndex("EventParticipantEventId", "EventParticipantUserId");
-
-                    b.HasIndex("EventItemId", "EventScoreTypeId", "EventParticipantUserId")
-                        .IsUnique();
 
                     b.ToTable("EventScores");
                 });
