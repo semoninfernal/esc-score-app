@@ -4,108 +4,108 @@ import errorHandler from '../errors';
 
 const eventItems = [
 	{
-		name: "I Feel Alive",
-		description: "Israel"
-	},
-	{
-		name: "Flashlight",
-		description: "Polen"
-	},
-	{
-		name: "Story of My Life",
-		description: "Vitryssland"
-	},
-	{
-		name: "Running On Air",
-		description: "Österrike"
-	},
-	{
-		name: "Fly With Me",
-		description: "Armenien"
-	},
-	{
-		name: "Lights and Shadows",
-		description: "Nederländerna"
-	},
-	{
-		name: "Hey Mamma",
-		description: "Moldavien"
-	},
-	{
-		name: "Origo",
-		description: "Ungern"
-	},
-	{
-		name: "Occidentali's Karma",
-		description: "Italien"
-	},
-	{
-		name: "Where I Am",
-		description: "Danmark"
-	},
-	{
-		name: "Amar pelos dois",
-		description: "Portugal"
-	},
-	{
-		name: "Skeletons",
-		description: "Azerbajdzjan"
-	},
-	{
-		name: "My Friend",
-		description: "Kroatien"
-	},
-	{
-		name: "Don't Come Easy",
-		description: "Australien"
-	},
-	{
-		name: "This Is Love",
-		description: "Grekland"
-	},
-	{
-		name: "Do It For Your Lover",
-		description: "Spanien"
-	},
-	{
-		name: "Grab The Moment",
-		description: "Norge"
-	},
-	{
-		name: "Never Give Up on You",
-		description: "Storbritannien"
-	},
-	{
-		name: "Gravity",
-		description: "Cypern"
-	},
-	{
-		name: "Yodel It!",
-		description: "Rumänien"
-	},
-	{
-		name: "Perfect Life",
-		description: "Tyskland"
-	},
-	{
-		name: "Time",
+		name: "Under the Ladder",
 		description: "Ukraina"
 	},
 	{
-		name: "City Lights",
-		description: "Belgien"
+		name: "Tu canción",
+		description: "Spanien"
 	},
 	{
-		name: "I Can’t Go On",
-		description: "Sverige"
+		name: "Hvala, ne!",
+		description: "Slovenien"
 	},
 	{
-		name: "Beautiful Mess",
+		name: "When We're Old",
+		description: "Litauen"
+	},
+	{
+		name: "Nobody but You",
+		description: "Österrike"
+	},
+	{
+		name: "La forza",
+		description: "Estland"
+	},
+	{
+		name: "That's How You Write a Song",
+		description: "Norge"
+	},
+	{
+		name: "O jardim",
+		description: "Portugal"
+	},
+	{
+		name: "Storm",
+		description: "Storbritannien"
+	},
+	{
+		name: "Serbien",
+		description: "Nova deca"
+	},
+	{
+		name: "You Let Me Walk Alone",
+		description: "Tyskland"
+	},
+	{
+		name: "Mall",
+		description: "Albanien"
+	},
+	{
+		name: "Mercy",
+		description: "Frankrike"
+	},
+	{
+		name: "Lie to Me",
+		description: "Tjeckien"
+	},
+	{
+		name: "Higher Ground",
+		description: "Danmark"
+	},
+	{
+		name: "We Got Love",
+		description: "Australien"
+	},
+	{
+		name: "Monsters",
+		description: "Finland"
+	},
+	{
+		name: "Bones",
 		description: "Bulgarien"
 	},
 	{
-		name: "Requiem",
-		description: "Frankrike"
+		name: "My Lucky Day",
+		description: "Moldavien"
+	},
+	{
+		name: "Dance You Off",
+		description: "Sverige"
+	},
+	{
+		name: "Viszlát nyár",
+		description: "Ungern"
+	},
+	{
+		name: "Toy",
+		description: "Israel"
+	},
+	{
+		name: "Outlaw in 'Em",
+		description: "Nederländerna"
+	},
+	{
+		name: "Together",
+		description: "Irland"
+	},
+	{
+		name: "Fuego",
+		description: "Cypern"
+	},
+	{
+		name: "Non mi avete fatto niente",
+		description: "Italien"
 	}
 ]
 
