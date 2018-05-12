@@ -121,7 +121,7 @@ export default class EurovisonService extends Service {
 	_createEvent(data) {
 		return this.knex('events')
 			.insert({
-				name: 'Eurovison 2017',
+				name: 'Eurovison 2018',
 				active: true
 			}, 'id')
 			.tap(rows => {
