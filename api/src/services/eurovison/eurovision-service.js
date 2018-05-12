@@ -4,108 +4,108 @@ import errorHandler from '../errors';
 
 const eventItems = [
 	{
-		name: "Under the Ladder",
-		description: "Ukraina"
+		description: "Under the Ladder",
+		name: "Ukraina"
 	},
 	{
-		name: "Tu canción",
-		description: "Spanien"
+		description: "Tu canción",
+		name: "Spanien"
 	},
 	{
-		name: "Hvala, ne!",
-		description: "Slovenien"
+		description: "Hvala, ne!",
+		name: "Slovenien"
 	},
 	{
-		name: "When We're Old",
-		description: "Litauen"
+		description: "When We're Old",
+		name: "Litauen"
 	},
 	{
-		name: "Nobody but You",
-		description: "Österrike"
+		description: "Nobody but You",
+		name: "Österrike"
 	},
 	{
-		name: "La forza",
-		description: "Estland"
+		description: "La forza",
+		name: "Estland"
 	},
 	{
-		name: "That's How You Write a Song",
-		description: "Norge"
+		description: "That's How You Write a Song",
+		name: "Norge"
 	},
 	{
-		name: "O jardim",
-		description: "Portugal"
+		description: "O jardim",
+		name: "Portugal"
 	},
 	{
-		name: "Storm",
-		description: "Storbritannien"
+		description: "Storm",
+		name: "Storbritannien"
 	},
 	{
-		name: "Serbien",
-		description: "Nova deca"
+		description: "Serbien",
+		name: "Nova deca"
 	},
 	{
-		name: "You Let Me Walk Alone",
-		description: "Tyskland"
+		description: "You Let Me Walk Alone",
+		name: "Tyskland"
 	},
 	{
-		name: "Mall",
-		description: "Albanien"
+		description: "Mall",
+		name: "Albanien"
 	},
 	{
-		name: "Mercy",
-		description: "Frankrike"
+		description: "Mercy",
+		name: "Frankrike"
 	},
 	{
-		name: "Lie to Me",
-		description: "Tjeckien"
+		description: "Lie to Me",
+		name: "Tjeckien"
 	},
 	{
-		name: "Higher Ground",
-		description: "Danmark"
+		description: "Higher Ground",
+		name: "Danmark"
 	},
 	{
-		name: "We Got Love",
-		description: "Australien"
+		description: "We Got Love",
+		name: "Australien"
 	},
 	{
-		name: "Monsters",
-		description: "Finland"
+		description: "Monsters",
+		name: "Finland"
 	},
 	{
-		name: "Bones",
-		description: "Bulgarien"
+		description: "Bones",
+		name: "Bulgarien"
 	},
 	{
-		name: "My Lucky Day",
-		description: "Moldavien"
+		description: "My Lucky Day",
+		name: "Moldavien"
 	},
 	{
-		name: "Dance You Off",
-		description: "Sverige"
+		description: "Dance You Off",
+		name: "Sverige"
 	},
 	{
-		name: "Viszlát nyár",
-		description: "Ungern"
+		description: "Viszlát nyár",
+		name: "Ungern"
 	},
 	{
-		name: "Toy",
-		description: "Israel"
+		description: "Toy",
+		name: "Israel"
 	},
 	{
-		name: "Outlaw in 'Em",
-		description: "Nederländerna"
+		description: "Outlaw in 'Em",
+		name: "Nederländerna"
 	},
 	{
-		name: "Together",
-		description: "Irland"
+		description: "Together",
+		name: "Irland"
 	},
 	{
-		name: "Fuego",
-		description: "Cypern"
+		description: "Fuego",
+		name: "Cypern"
 	},
 	{
-		name: "Non mi avete fatto niente",
-		description: "Italien"
+		description: "Non mi avete fatto niente",
+		name: "Italien"
 	}
 ]
 
